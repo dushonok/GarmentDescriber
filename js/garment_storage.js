@@ -35,12 +35,21 @@ function incr(dict, key, first) {
   return r;
 }
 
+// http://jsperf.com/ways-to-0-pad-a-number/5
 function prefixZeroes(length, x) {
   var my_string = '' + x;
   for (var to_add = length - my_string.length; to_add > 0; to_add -= 1) {
     my_string = '0' + my_string;
   }
   return my_string;
+}
+
+// http://stackoverflow.com/questions/3665115/create-a-file-in-memory-for-user-to-download-not-through-server
+function download(filename, text) {
+  var pom = document.createElement('a');
+  pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  pom.setAttribute('download', filename);
+  pom.click();
 }
 
 function session(sessionId) {
@@ -129,4 +138,5 @@ function exportCSV(sessionId) {
 
 // prompt the user to download a file named "Nadya003.csv"
 function downloadCSV(sessionId) {
+  download(sessionId + ".csv", exportCSV(sessionId));
 }
