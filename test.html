@@ -9,7 +9,39 @@
   </head>
   <body class="autodoctest">
 
-  A test:
+<h1>Garment API</h1>
+
+<p>All the operations below save to the permacookie.</p>
+
+<p>To make the tests deterministic, we begin by clearing the permacookie (sorry if I just deleted all of your data):</p>
+
+<pre class="test">
+window.localStorage.clear();
+print(window.localStorage)
+// => []
+</pre>
+
+<pre>
+# -1 if none were saved on this machine
+lastUIC = getLastUIC()
+saveUIC(lastUIC + 1)
+
+sessionId = newSession("Nadya")
+garmentId = newGarment(sessionId)
+
+# edit the field if it exists, or add it to the end of the row otherwise
+saveField(sessionId, garmentId, key, value)
+
+sessionIds = listSessions()
+garmentIds = listGarments(sessionId)
+getField(sessionId, garmentId, key)
+
+# prompt the user to download a file named "Nadya003.csv"
+# with one line per garnment, in the order they were created,
+# each of which list all the field values (separated by commas)
+# in the order they were added.
+exportCSV(sessionId)
+</pre>
 
 <pre class="test">
 print(1+2)
