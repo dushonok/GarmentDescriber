@@ -14,15 +14,19 @@
 <p>All the operations below save to the permacookie.</p>
 
 <p>To make the tests deterministic, we begin by clearing the permacookie (sorry if I just deleted all of your data):</p>
-
 <pre class="test">
 window.localStorage.clear();
 print(window.localStorage)
 // => []
 </pre>
 
+<p>Each user should begin by initializing a "session", which groups together many garments.</p>
+<pre class="test">
+sessionId = newSession("Nadya");
+print(sessionId);
+// => "Nadya001"
+</pre>
 <pre>
-sessionId = newSession("Nadya")
 garmentId = newGarment(sessionId)
 
 # edit the field if it exists, or add it to the end of the row otherwise
