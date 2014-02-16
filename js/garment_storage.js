@@ -1,13 +1,19 @@
 // private
 
+function getDefault(dict, key, default_value) {
+  if (dict[key] === undefined) {
+    dict[key] = default_value;
+  }
+  return dict[key];
+}
+
 var permacookie = undefined;
 var permacookie_key = "garment_storage";
 function getPermacookie() {
   if (permacookie === undefined) {
-    if (window.localStorage[permacookie_key] === undefined) {
-      window.localStorage[permacookie_key] = JSON.stringify({});
-    }
-    permacookie = JSON.parse(window.localStorage[permacookie_key]);
+    permacookie = JSON.parse(
+      getDefault(window.localStorage, permacookie_key, JSON.stringify({}))
+    );
   }
   return permacookie;
 }
@@ -19,15 +25,16 @@ function savePermacookie() {
   permacookie = getPermacookie();
 }
 
-function saveSessionNumber(n) {
-  getPermacookie()["lastSessionNumber"] = n;
+function saveSessionNumber(username, n) {
+  getDefault(getPermacookie(), "lastSessionNumbers", {})[username] = n;
   savePermacookie();
 }
-function lastSessionNumber() {
-  if (getPermacookie()["lastSessionNumber"] === undefined) {
-    saveSessionNumber(0);
-  }
-  return getPermacookie()["lastSessionNumber"];
+function lastSessionNumber(username) {
+  return getDefault(
+    getDefault(getPermacookie(), "lastSessionNumbers", {}),
+    username,
+    0
+  );
 }
 
 function prefixZeroes(length, x) {
@@ -42,10 +49,10 @@ function prefixZeroes(length, x) {
 // public
 
 function newSession(username) {
-  var n = lastSessionNumber() + 1;
-  saveSessionNumber(n);
+  var n = lastSessionNumber(username) + 1;
+  saveSessionNumber(username, n);
   
-  return "Nadya" + prefixZeroes(3, n);
+  return username + prefixZeroes(3, n);
 }
 
 function newGarment(sessionId) {
