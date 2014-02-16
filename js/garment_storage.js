@@ -83,7 +83,7 @@ function saveField(sessionId, garmentId, key, value) {
 
 
 function listSessions() {
-  return ["Nadya001"];
+  return Object.keys(topDict("sessions"));
 }
 
 function listGarments(sessionId) {
