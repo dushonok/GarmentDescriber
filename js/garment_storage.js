@@ -46,9 +46,11 @@ function prefixZeroes(length, x) {
 function session(sessionId) {
   return getDefault(topDict("sessions"), sessionId, {});
 }
+function garments(sessionId) {
+  return getDefault(session(sessionId), "garments", []);
+}
 function garment(sessionId, garmentId) {
-  var garments = getDefault(session(sessionId), "garments", []);
-  return getDefault(garments, garmentId, []);
+  return getDefault(garments(sessionId), garmentId, []);
 }
 
 
@@ -87,7 +89,12 @@ function listSessions() {
 }
 
 function listGarments(sessionId) {
-  return [0, 1];
+  var r = [];
+  var n = garments(sessionId).length;
+  for (var i=0; i<n; ++i) {
+    r[i] = i;
+  }
+  return r;
 }
 
 function getField(sessionId, garmentId, key) {
