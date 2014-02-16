@@ -112,7 +112,19 @@ function getField(sessionId, garmentId, key) {
 // each of which list all the field values (separated by commas)
 // in the order they were added.
 function exportCSV(sessionId) {
-  return "Betty Liu,dress,blue,100.0\nNadya Dushonok,bracelet,rainbow,15.0\n";
+  var r = [];
+  var xss = garments(sessionId);
+  for (var i=0; i<xss.length; ++i) {
+    var xs = xss[i]
+    for (var j=0; j<xs.length; ++j) {
+      if (j != 0) r += ",";
+      
+      var pair = xs[j];
+      r += pair[1];
+    }
+    r += "\n";
+  }
+  return r;
 }
 
 // prompt the user to download a file named "Nadya003.csv"
