@@ -25,16 +25,16 @@ function savePermacookie() {
   permacookie = getPermacookie();
 }
 
+function topDict(key) {
+  return getDefault(getPermacookie(), key, {});
+}
+
 function saveSessionNumber(username, n) {
-  getDefault(getPermacookie(), "lastSessionNumbers", {})[username] = n;
+  topDict("lastSessionNumbers")[username] = n;
   savePermacookie();
 }
 function lastSessionNumber(username) {
-  return getDefault(
-    getDefault(getPermacookie(), "lastSessionNumbers", {}),
-    username,
-    0
-  );
+  return getDefault(topDict("lastSessionNumbers"), username, 0);
 }
 
 function prefixZeroes(length, x) {
