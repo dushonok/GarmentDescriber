@@ -46,6 +46,10 @@ function prefixZeroes(length, x) {
 function session(sessionId) {
   return getDefault(topDict("sessions"), sessionId, {});
 }
+function garment(sessionId, garmentId) {
+  var garments = getDefault(session(sessionId), "garments", []);
+  return getDefault(garments, garmentId, []);
+}
 
 
 // public
@@ -64,6 +68,17 @@ function newGarment(sessionId) {
 
 // edit the field if it exists, or add it to the end of the row otherwise
 function saveField(sessionId, garmentId, key, value) {
+  var pairs = garment(sessionId, garmentId);
+  for (var i=0; i<pairs.length; ++i) {
+    var pair = pairs[i];
+    if (pair[0] == key) {
+      pair[1] = value;
+      return;
+    }
+  }
+  
+  // add it to the end
+  pairs[pairs.length] = [key, value];
 }
 
 
@@ -76,7 +91,13 @@ function listGarments(sessionId) {
 }
 
 function getField(sessionId, garmentId, key) {
-  return "Betty Liu";
+  var pairs = garment(sessionId, garmentId);
+  for (var i=0; i<pairs.length; ++i) {
+    var pair = pairs[i];
+    if (pair[0] == key) {
+      return pair[1];
+    }
+  }
 }
 
 
