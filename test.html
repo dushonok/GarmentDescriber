@@ -13,6 +13,14 @@
 
 <p>All the operations below save to the permacookie.</p>
 
+<p>To make the tests deterministic, we begin by clearing the permacookie (sorry if I just deleted all of your data):</p>
+
+<pre class="test">
+window.localStorage.clear();
+print(window.localStorage)
+// => []
+</pre>
+
 <pre>
 # -1 if none were saved on this machine
 lastUIC = getLastUIC()
