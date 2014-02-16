@@ -43,6 +43,10 @@ function prefixZeroes(length, x) {
   return my_string;
 }
 
+function session(sessionId) {
+  return getDefault(topDict("sessions"), sessionId, {});
+}
+
 
 // public
 
@@ -54,7 +58,7 @@ function newSession(username) {
 }
 
 function newGarment(sessionId) {
-  return 0;
+  return incr(session(sessionId), "nextGarmentId", 0);
 }
 
 
