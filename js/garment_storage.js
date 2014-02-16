@@ -29,12 +29,10 @@ function topDict(key) {
   return getDefault(getPermacookie(), key, {});
 }
 
-function saveSessionNumber(username, n) {
-  topDict("lastSessionNumbers")[username] = n;
-  savePermacookie();
-}
-function lastSessionNumber(username) {
-  return getDefault(topDict("lastSessionNumbers"), username, 0);
+function incr(dict, key, first) {
+  var r = getDefault(dict, key, first);
+  dict[key] = r + 1;
+  return r;
 }
 
 function prefixZeroes(length, x) {
@@ -49,8 +47,8 @@ function prefixZeroes(length, x) {
 // public
 
 function newSession(username) {
-  var n = lastSessionNumber(username) + 1;
-  saveSessionNumber(username, n);
+  var n = incr(topDict("sessionNumber"), username, 1);
+  savePermacookie();
   
   return username + prefixZeroes(3, n);
 }
