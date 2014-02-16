@@ -1,5 +1,51 @@
+// private
+
+var permacookie = undefined;
+var permacookie_key = "garment_storage";
+function getPermacookie() {
+  if (permacookie === undefined) {
+    if (window.localStorage[permacookie_key] === undefined) {
+      window.localStorage[permacookie_key] = JSON.stringify({});
+    }
+    permacookie = JSON.parse(window.localStorage[permacookie_key]);
+  }
+  return permacookie;
+}
+function savePermacookie() {
+  window.localStorage[permacookie_key] = JSON.stringify(permacookie);
+  
+  // make sure the data is recoverable
+  permacookie = undefined;
+  permacookie = getPermacookie();
+}
+
+function saveSessionNumber(n) {
+  getPermacookie()["lastSessionNumber"] = n;
+  savePermacookie();
+}
+function lastSessionNumber() {
+  if (getPermacookie()["lastSessionNumber"] === undefined) {
+    saveSessionNumber(0);
+  }
+  return getPermacookie()["lastSessionNumber"];
+}
+
+function prefixZeroes(length, x) {
+  var my_string = '' + x;
+  for (var to_add = length - my_string.length; to_add > 0; to_add -= 1) {
+    my_string = '0' + my_string;
+  }
+  return my_string;
+}
+
+
+// public
+
 function newSession(username) {
-  return "Nadya001";
+  var n = lastSessionNumber() + 1;
+  saveSessionNumber(n);
+  
+  return "Nadya" + prefixZeroes(3, n);
 }
 
 function newGarment(sessionId) {
