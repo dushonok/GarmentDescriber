@@ -20,27 +20,90 @@ print(window.localStorage)
 // => []
 </pre>
 
+<h2>Adding Garments</h2>
+
 <p>Each user should begin by initializing a "session", which groups together many garments.</p>
 <pre class="test">
 sessionId = newSession("Nadya");
 print(sessionId);
 // => "Nadya001"
 </pre>
-<pre>
-garmentId = newGarment(sessionId)
 
-# edit the field if it exists, or add it to the end of the row otherwise
-saveField(sessionId, garmentId, key, value)
+<p>Let's add our first garment.</p>
+<pre class="test">
+garmentId = newGarment(sessionId);
+print(garmentId);
+// => 0
+</pre>
 
-sessionIds = listSessions()
-garmentIds = listGarments(sessionId)
-getField(sessionId, garmentId, key)
+<p>Each garment is described by a list of (key, value) pairs.</p>
+<pre class="test">
+saveField(sessionId, garmentId, "designer", "Betty Liu")
+saveField(sessionId, garmentId, "category", "dress")
+saveField(sessionId, garmentId, "color",    "blue")
+saveField(sessionId, garmentId, "price",    "100.0")
+</pre>
 
-# prompt the user to download a file named "Nadya003.csv"
-# with one line per garment, in the order they were created,
-# each of which list all the field values (separated by commas)
-# in the order they were added.
-exportCSV(sessionId)
+<p>Let's add a second garment.</p>
+<pre class="test">
+garmentId = newGarment(sessionId);
+print(garmentId);
+// => 1
+
+saveField(sessionId, garmentId, "designer", "Nadya Dushonok")
+saveField(sessionId, garmentId, "category", "bracelet")
+saveField(sessionId, garmentId, "color",    "rainbow")
+saveField(sessionId, garmentId, "price",    "15.0")
+</pre>
+
+<h2>Exporting Data</h2>
+<p>That's it! We are now ready to export our data.</p>
+<pre class="test">
+print(exportCSV(sessionId));
+/* =>
+Betty Liu,dress,blue,100.0
+Nadya Dushonok,bracelet,rainbow,15.0
+*/
+</pre>
+
+<h2>Modifying Data</h2>
+
+<p>Let's review what we have created so far.</p>
+
+<p>One session:</p>
+<pre class="test">
+sessionIds = listSessions();
+print(sessionIds);
+// => ["Nadya001"]
+</pre>
+
+<p>Two garments:</p>
+<pre class="test">
+garmentIds = listGarments(sessionId);
+print(garmentIds);
+// => [0, 1]
+</pre>
+
+<p>Each of which has many (key, value) pairs:</p>
+<pre class="test">
+print(getField(sessionId, 0, "designer"));
+// => "Betty Liu"
+print(getField(sessionId, 1, "color"));
+// => "Rainbow"
+</pre>
+
+<p>Which we can modify:</p>
+<pre class="test">
+saveField(sessionId, 1, "color", "bright clutter");
+</pre>
+
+<p>And those changes will be reflected in the CSV:</p>
+<pre class="test">
+print(exportCSV(sessionId));
+/* =>
+Betty Liu,dress,blue,100.0
+Nadya Dushonok,bracelet,bright clutter,15.0
+*/
 </pre>
 
   </body>
