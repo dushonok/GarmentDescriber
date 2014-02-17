@@ -7,7 +7,7 @@
     <script src="js/garment_storage.js"></script>
     <script>
       $(document).ready(function() {
-        listFieldValues("ItemMatrix", function(data) {
+        listFieldValues("Category", function(data) {
           console.log("OK");
           $.each(data, function(i,category) {
             $("<li>"+i+": "+category+"</li>").appendTo($("#categories"));
