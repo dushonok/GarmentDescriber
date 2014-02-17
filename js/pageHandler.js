@@ -1,17 +1,21 @@
 
-function PageCreator(pageTotal, pageNames) {
+function PageCreator(pageNames) {
 	var self = this;
 	
 	this.pageNumber = 1;
-	this.totalNumberOfPage = pageTotal;
+	this.totalNumberOfPage = pageNames.length;
 	this.pageNameArray = pageNames;
 	this.pageNameTemplate = "page";
+
+	this.garmentID = -1;
 	
 
 	this.init = function() {
 		var items;
 		var prevButton;
 		var htmlPage;
+
+		this.sessionID = newSession("items");
 
 		for (var i = 0; i < self.pageNameArray.length; i++) {
 			items = {
@@ -93,6 +97,10 @@ function PageCreator(pageTotal, pageNames) {
 	},
 
 	this.goToNextPage = function() {
+		if (self.garmentID < 0) {
+			self.garmentID = newGarment(self.sessionId);
+			console.debug("garmentID = ", self.garmentID);
+		}
 		self.goToPage(self.nextPageNumber);
 	},
 

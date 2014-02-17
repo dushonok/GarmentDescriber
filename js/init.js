@@ -13,8 +13,9 @@
 	//     return; //using "return" other attached events will execute
 	// });
 
-	var pageCreator = new PageCreator(4, 
-		[	{
+	var pageCreator = new PageCreator(
+		[	
+			{
 				title: "Designers",
 				values: Item.getAllDesigners()
 			},
