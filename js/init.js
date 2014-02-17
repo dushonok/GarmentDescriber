@@ -13,7 +13,16 @@
 	//     return; //using "return" other attached events will execute
 	// });
 
-	var pageCreator = new PageCreator(4, ["Designers", "Garment Type"]);
+	var pageCreator = new PageCreator(4, 
+		[	{
+				title: "Designers",
+				values: Item.getAllDesigners()
+			},
+			{
+				title: "Garment Type",
+				values: []
+			}
+		]);
 
 	pageCreator.goToNextPage();
 	
