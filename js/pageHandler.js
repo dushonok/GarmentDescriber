@@ -34,17 +34,27 @@ function PageCreator(pageTotal, pageNames) {
 		};
 	},
 
+	this.itemWasClicked = function(value) {
+		console.debug("designer, value = ", value.id);
+		document.getElementById("input").value = value.name;
+		this.id = value.id;
+	},
+
+	this.findPage = function() {
+		return $("body").find("div#" + self.pageNameTemplate + self.pageNumber);
+	},
+
 	this.goToNextPage = function() {
 		var items = {
 			currentPage: this.pageNumber,
 			totalNumberOfPage: this.totalNumberOfPage,
-			clickHandler: "RowHandler.designerWasClicked",
+			clickHandler: "self.itemWasClicked",
 			title: "Designers",
 			items: Item.getAllDesigners(),
-			pageHandler: this
+			pageHandler: self
 		};
 
-		var existingDivs = $("body").find("div#" + self.pageNameTemplate + self.pageNumber);
+		var existingDivs = self.findPage();
 		console.debug("existingDiv = ", existingDivs[0]);
 		if (existingDivs.length === 0) {
 			var htmlPage = new EJS({url: 'view/page.ejs'}).render(items);
@@ -52,9 +62,9 @@ function PageCreator(pageTotal, pageNames) {
 			$("body").find("button#nextButton")[0].onclick = self.goToNextPage;
 		} else {
 			var nextPage = self.nextPageNumber();
-			console.debug("nextPage = ", nextPage);
 			if (!nextPage.edge) {
 				$(existingDivs[0]).hide();
+				existingDivs = self.findPage();
 				// show the next page	
 			}
 			
