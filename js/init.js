@@ -13,11 +13,13 @@
 	//     return; //using "return" other attached events will execute
 	// });
 
-	var data = {
-		title: "HOHO",
-		supplies: Designer.getAll()
-	}
-	var html = new EJS({url: 'D:/Projects/GarmentDescriber/view/main.ejs'}).render(data);
-	$("body").append(html);
+	var pageCreator = new PageCreator(4, []);
+
+	pageCreator.goToNextPage();
+	
+	// for (var i = 0; i < designers.length; ++i) {
+	// 	document.getElementById("button"+i).addEventListener("click", buttonWasClicked, false);
+	// };
+	
 })();
 

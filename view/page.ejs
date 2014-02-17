@@ -1,0 +1,34 @@
+<div id="page<%= currentPage %>">
+	<h5>Page <%= currentPage %> out of <%= totalNumberOfPage %></h5>
+	<h3><%= title %></h3>
+
+	<form name=myText>
+		<label for="exampleInputPassword1">Value to store:</label>
+		<input class="form-control"id="input" name="valueToStore" value="">
+	</form>
+
+	<% var numberInRow = 5; %>
+
+	<% for(var i=0; i<items.length; i++) { %>
+	    <button type="button" id="button<%= i %>" accesskey="<%= i %>" class="btn btn-default" \ 
+	    		value="items[i].getName()" \ 
+	    		onclick="<%= clickHandler%>({id: <%= items[i].getID()%>, name: '<%= items[i].getName()%>'})">
+	        <a href=""><%= i %></a>. <%= items[i].getName() %>
+	    </button>
+	    <% if (i%numberInRow === 0 && i != 0) {%>
+			<br>
+		<%}%>
+	<% } %>
+
+	<div class="footer">
+		<br><br><br>
+		<%if (currentPage > 1) { %>
+			<button type="button" accesskey=">"  class="btn btn-default">
+			    Previous Row <
+			</button>&nbsp;
+		<% } %>
+		<button type="button" accesskey=">"  class="btn btn-default">
+		    Save & Go to Next Row >
+		</button>
+	</div>
+</div>
