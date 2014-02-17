@@ -117,6 +117,24 @@ function getField(sessionId, garmentId, key) {
 }
 
 
+// an array of dictionaries from keys to values.
+function exportJson(sessionId) {
+  var r = [];
+  var xss = garments(sessionId);
+  for (var i=0; i<xss.length; ++i) {
+    var xs = xss[i]
+    var g = {};
+    for (var j=0; j<xs.length; ++j) {
+      var pair = xs[j];
+      var key = pair[0];
+      var value = pair[1];
+      g[key] = value;
+    }
+    r[i] = g;
+  }
+  return r;
+}
+
 // one line per garment, in the order they were created,
 // each of which list all the field values (separated by commas)
 // in the order they were added.
@@ -149,4 +167,15 @@ function listFieldKeys(callback) {
 function listFieldValues(fieldKey, callback) {
   var url = "http://gelisam.com/ff/GarmentDescriber/list-field-values.php?key=" + fieldKey;
   $.getJSON(url, callback);
+}
+
+function uploadGarment(sessionId, garmentId, callback) {
+  var url = "http://gelisam.com/ff/GarmentDescriber/upload-item.php";
+  $.ajax({
+    type: "POST",
+    dataType: "json",
+    url: url,
+    data: exportJson(sessionId)[garmentId],
+    success: callback
+  });
 }
