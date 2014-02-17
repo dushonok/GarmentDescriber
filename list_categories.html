@@ -7,17 +7,19 @@
     <script src="js/garment_storage.js"></script>
     <script>
       $(document).ready(function() {
-        listFieldValues("Category", function(data) {
-          console.log("OK");
-          $.each(data, function(i,category) {
-            $("<li>"+i+": "+category+"</li>").appendTo($("#categories"));
+        $.each(listFieldKeys(), function(_, key) {
+          $("<h3>"+key+"</h3>").appendTo($("body"));
+          var list = $("<ul></ul>").appendTo($("body"));
+          listFieldValues(key, function(data) {
+            console.log("OK");
+            $.each(data, function(i,category) {
+              $("<li>"+i+": "+category+"</li>").appendTo(list);
+            });
           });
         });
       });
     </script>
   </head>
   <body>
-    <ul id="categories">
-    </ul>
   </body>
 </html>
