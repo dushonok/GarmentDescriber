@@ -1,3 +1,4 @@
+
 (function(){
 	// $(window).keydown(function(e) {
 	//     switch (e.keyCode) {
@@ -13,17 +14,41 @@
 	//     return; //using "return" other attached events will execute
 	// });
 
-	var pageCreator = new PageCreator(
-		[	
-			{
-				title: "Designers",
-				values: Item.getAllDesigners()
-			},
-			{
-				title: "Garment Type",
-				values: []
-			}
-		]);
+	var promises = [];
+	var fieldKeys = listFieldKeys();
+
+	var fullInfo = [];
+	for (var i in fieldKeys) {
+		var fieldKey = fieldKeys[i]
+		var deferred = Q.defer();
+		promises.push(deferred);
+		var values = listFieldValues(fieldKey, function() {
+			console.debug("fieldKeys[i] = ", fieldKey, ", values = ", values);
+			fullInfo.push(
+				{
+					title: fieldKey,
+					values:  values
+				}
+			);
+			deferred.resolve();
+		});
+		console.debug("values2 = ", values);
+	}
+
+	Q.all(promises).done(function(){
+
+		var pageCreator = new PageCreator(
+			[	
+				{
+					title: "Designers",
+					values: Item.getAllDesigners()
+				},
+				{
+					title: "Garment Type",
+					values: []
+				}
+			]);
+	});
 
 	//pageCreator.goToNextPage();
 	
