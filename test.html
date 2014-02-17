@@ -109,6 +109,20 @@ Nadya Dushonok,bracelet,bright clutter,15.0
 <h2>More Tests</h2>
 
 <pre class="test">
+print(exportJson(sessionId));
+/* =>
+[
+  {category: "dress", color: "blue", designer: "Betty Liu", price: "100.0"},
+  {
+    category: "bracelet",
+    color: "bright clutter",
+    designer: "Nadya Dushonok",
+    price: "15.0"
+  }
+]
+*/
+</pre>
+<pre class="test">
 sessionId = newSession("Nadya");
 print(sessionId);
 // => Nadya002

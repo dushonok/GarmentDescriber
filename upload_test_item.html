@@ -1,0 +1,26 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>LightSpeed Categories</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/garment_storage.js"></script>
+    <script>
+      $(document).ready(function() {
+        var sessionId = newSession("TestUser");
+        var garmentId = newGarment(sessionId);
+        saveField(sessionId, garmentId, "description", "A pretty dress made of three different T-shirts sewed together.");
+        saveField(sessionId, garmentId, "price", "120.0");
+        saveField(sessionId, garmentId, "Category", "12");
+        saveField(sessionId, garmentId, "TaxClass", "2");
+        saveField(sessionId, garmentId, "Manufacturer", "6");
+        saveField(sessionId, garmentId, "Vendor", "334");
+        uploadGarment(sessionId, garmentId, function(data) {
+          $("body").html(JSON.stringify(data));
+        });
+      });
+    </script>
+  </head>
+  <body>
+  </body>
+</html>

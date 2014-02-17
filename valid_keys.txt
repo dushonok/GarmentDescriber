@@ -1,0 +1,16 @@
+"cost" aka "price" aka "defaultCost"
+"avgCost"
+"msrp" // manufacturer recommended retail price
+"tax" // bool
+"itemType" // "default", "non_inventory", "serialized_asse
+"description"
+"year" aka "modelYear"
+"upc"// a standard SKU number.
+"ean"// a standard SKU number.
+"SKU" aka "sku" aka "customSku"
+"manufacturerSku"
+"Category" aka "categoryID"
+"TaxClass" aka "taxClassID"
+"ItemMatrix" aka "itemMatrixID"
+"Manufacturer" aka "manufacturerID"
+"vendorID" aka "Vendor" aka "defaultVendorID"
