@@ -140,3 +140,13 @@ function exportCSV(sessionId) {
 function downloadCSV(sessionId) {
   download(sessionId + ".csv", exportCSV(sessionId));
 }
+
+
+function listFieldKeys(callback) {
+  return ["Category", "TaxClass", "ItemMatrix", "Manufacturer", "Vendor"];
+}
+
+function listFieldValues(fieldKey, callback) {
+  var url = "http://gelisam.com/ff/GarmentDescriber/list-field-values.php?key=" + fieldKey;
+  $.getJSON(url, callback);
+}

@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>LightSpeed Categories</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/garment_storage.js"></script>
     <script>
       $(document).ready(function() {
-        $.getJSON("http://gelisam.com/ff/GarmentDescriber/list-field-values.php?key=ItemMatrix", function(data) {
+        listFieldValues("ItemMatrix", function(data) {
           console.log("OK");
           $.each(data, function(i,category) {
             $("<li>"+i+": "+category+"</li>").appendTo($("#categories"));
