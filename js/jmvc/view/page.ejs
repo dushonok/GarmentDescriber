@@ -10,9 +10,10 @@
 	<% var numberInRow = 5; %>
 
 	<% for(var i=0; i<items.length; i++) { %>
-	    <button type="button" id="button<%= i %>" accesskey="<%= i %>" class="btn btn-default" \ 
+		<button type="button" id="button<%= i %>" accesskey="<%= i %>" class="btn btn-default" \ 
 	    		value="items[i].getName()" \ 
-	    		onclick="<%= clickHandler%>({id: <%= items[i].getID()%>, name: '<%= items[i].getName()%>'})">
+	    		onclick="RowHandler.itemWasClicked({id: <%= items[i].getID()%>, name: '<%= items[i].getName()%>'})"
+	    		>
 	        <a href=""><%= i %></a>. <%= items[i].getName() %>
 	    </button>
 	    <% if (i%numberInRow === 0 && i != 0) {%>
@@ -23,7 +24,7 @@
 	<div class="footer">
 		<br><br><br>
 		<%if (currentPage > 1) { %>
-			<button type="button" accesskey=">"  class="btn btn-default">
+			<button type="button" accesskey=">"  class="btn btn-default" id="prevButton">
 			    Previous Field <
 			</button>&nbsp;
 		<% } %>

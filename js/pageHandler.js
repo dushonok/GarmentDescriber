@@ -10,18 +10,24 @@ function PageCreator(pageTotal, pageNames) {
 
 	this.init = function() {
 		var items;
+		var prevButton;
+		var htmlPage;
 
 		for (var i = 0; i < self.pageNameArray.length; i++) {
 			items = {
 				currentPage: i+1,
 				totalNumberOfPage: self.totalNumberOfPage,
-				clickHandler: "self.itemWasClicked",
 				title: self.pageNameArray[i].title,
-				items: self.pageNameArray[i].values
+				items: self.pageNameArray[i].values,
+				pageHandler: self
 			};
-			var htmlPage = new EJS({url: 'view/page.ejs'}).render(items);
+			htmlPage = new EJS({url: 'js/jmvc/view/page.ejs'}).render(items);
 			$("body").append(htmlPage);
 			$("body").find("button#nextButton")[0].onclick = self.goToNextPage;
+			prevButton = $("body").find("button#prevButton")[0];
+			if (prevButton != null) {
+				prevButton.onclick = self.goToPrevPage;
+			}
 			if (i != 0) {
 				$(self.getPage(i+1)).hide();
 			}
@@ -56,9 +62,9 @@ function PageCreator(pageTotal, pageNames) {
 	},
 
 	this.itemWasClicked = function(value) {
-		console.debug("designer, value = ", value.id);
+		console.debug("itemWasClicked, value = ", value.id);
 		document.getElementById("input").value = value.name;
-		this.id = value.id;
+		self.id = value.id;
 	},
 
 	this.getPage = function(number) {
@@ -67,52 +73,38 @@ function PageCreator(pageTotal, pageNames) {
 
 
 	this.getCurrentPage = function() {
-		return getPage(self.pageNumber);
+		return self.getPage(self.pageNumber);
+	},
+
+	this.goToPage = function(funcToGoToPage){
+		var existingDivs = self.getCurrentPage();
+		if (existingDivs.length != 0) {
+			var nextPage = funcToGoToPage();
+			console.debug("existingDiv page = ", existingDivs[0]);
+			if (!nextPage.edge) {
+				$(existingDivs[0]).hide();
+
+				existingDivs = self.getCurrentPage();
+				// show the next page	
+				$(existingDivs[0]).show();
+			}
+			
+		}
 	},
 
 	this.goToNextPage = function() {
-		// var items = {
-		// 	currentPage: self.pageNumber,
-		// 	totalNumberOfPage: self.totalNumberOfPage,
-		// 	clickHandler: "self.itemWasClicked",
-		// 	title: "Designers",
-		// 	items: Item.getAllDesigners(),
-		// 	pageHandler: self
-		// };
-
-		// var existingDivs = self.getCurrentPage();
-		// console.debug("existingDiv = ", existingDivs[0]);
-		// if (existingDivs.length === 0) {
-		// 	var htmlPage = new EJS({url: 'view/page.ejs'}).render(items);
-		// 	$("body").append(htmlPage);
-		// 	$("body").find("button#nextButton")[0].onclick = self.goToNextPage;
-		// } else {
-		// 	var nextPage = self.nextPageNumber();
-		// 	if (!nextPage.edge) {
-		// 		$(existingDivs[0]).hide();
-
-		// 		// TODO: refactor
-		// 		items = {
-		// 			currentPage: self.pageNumber,
-		// 			totalNumberOfPage: self.totalNumberOfPage,
-		// 			clickHandler: "self.itemWasClicked",
-		// 			title: "Designers",
-		// 			items: Item.getAllDesigners(),
-		// 			pageHandler: self
-		// 		};
-		// 		existingDivs = self.getCurrentPage();
-		// 		// show the next page	
-		// 		var htmlPage = new EJS({url: 'view/page.ejs'}).render(items);
-		// 		$("body").append(htmlPage);
-		// 		$("body").find("button#nextButton")[0].onclick = self.goToNextPage;
-		// 	}
-			
-		// }
+		self.goToPage(self.nextPageNumber);
 	},
 
 	this.goToPrevPage = function() {
-		;
+		self.goToPage(self.prevPageNumber);
+	},
+
+	this.setCurrentID = function(id) {
+		self.id = id;
 	}
 
 	self.init();
 }
+
+PageCreator

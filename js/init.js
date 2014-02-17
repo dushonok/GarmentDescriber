@@ -24,7 +24,7 @@
 			}
 		]);
 
-	pageCreator.goToNextPage();
+	//pageCreator.goToNextPage();
 	
 	// for (var i = 0; i < designers.length; ++i) {
 	// 	document.getElementById("button"+i).addEventListener("click", buttonWasClicked, false);
