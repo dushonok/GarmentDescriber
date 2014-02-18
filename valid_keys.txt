@@ -1,3 +1,4 @@
+"quantity"
 "cost" aka "price" aka "defaultCost"
 "avgCost"
 "msrp" // manufacturer recommended retail price
