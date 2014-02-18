@@ -45,6 +45,7 @@ function PageCreator(pageNames) {
 		};
 
 		self.saveAndRestart();
+		RowHandler.pageHandler = self;
 	},
 
 	this.nextPageNumber = function() {
@@ -142,6 +143,7 @@ function PageCreator(pageNames) {
 	},
 
 	this.setCurrentID = function(id) {
+		console.debug("setCurrentID, id = ", id);
 		self.id = id;
 	},
 

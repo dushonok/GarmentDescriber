@@ -1,7 +1,6 @@
 function RowHandler() {}
 
-RowHandler.itemWasClicked = function(inputName, id, value) {
-		console.debug("itemWasClicked, value = ", value);
-		document.getElementById(inputName).value = value;
-		//pageHandler.setCurrentID(value.id);
+RowHandler.itemWasClicked = function(inputName, value, desc) {
+		document.getElementById(inputName).value = desc;
+		RowHandler.pageHandler.setCurrentID(value);
 	}

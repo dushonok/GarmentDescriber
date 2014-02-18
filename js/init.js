@@ -24,7 +24,6 @@
 				values:  values
 			}
 		);
-		//console.debug("fieldKeys[i] = ", title, ", array = ", array);		
 	};
 
 	var fullInfo = [];
