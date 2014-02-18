@@ -4,7 +4,7 @@
 
 	<form name=myText>
 		<label for="exampleInputPassword1">Value to store:</label>
-		<input class="form-control"id="input" name="valueToStore" value="">
+		<input class="form-control"id="input<%= currentPage %>" name="valueToStore" value="">
 	</form>
 
 	<% var numberInRow = 5; var i = 0;%>
@@ -13,7 +13,7 @@
 		<% var value = items[key];  %>
 		<button type="button" id="button<%= i %>" class="btn btn-default" \ 
 	    		value="<%= value%>" \ 
-	    		onclick="RowHandler.itemWasClicked({id: <%= key%>, name: '<%= value%>'})"
+	    		onclick="RowHandler.itemWasClicked('input<%= currentPage %>', <%= key%>, '<%= value%>')"
 	    		>
 	        <a href=""><%= i %></a>. <%= value %>
 	    </button>
