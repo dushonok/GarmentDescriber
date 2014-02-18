@@ -24,8 +24,7 @@
 				values:  values
 			}
 		);
-		console.debug("fieldKeys[i] = ", title, ", array = ", array);
-		
+		//console.debug("fieldKeys[i] = ", title, ", array = ", array);		
 	};
 
 	var fullInfo = [];
@@ -54,11 +53,5 @@
 	console.debug("promises = ", promises);
 	Q.all(promises).then(callback);
 
-	//pageCreator.goToNextPage();
-	
-	// for (var i = 0; i < designers.length; ++i) {
-	// 	document.getElementById("button"+i).addEventListener("click", buttonWasClicked, false);
-	// };
-	
 })();
 

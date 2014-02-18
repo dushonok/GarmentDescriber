@@ -27,8 +27,8 @@ function PageCreator(pageNames) {
 			};
 			htmlPage = new EJS({url: 'js/jmvc/view/page.ejs'}).render(items);
 			$("body").append(htmlPage);
-			$("body").find("button#nextButton")[0].onclick = self.goToNextPage;
-			prevButton = $("body").find("button#prevButton")[0];
+			$("body").find("button#nextButton")[i].onclick = self.goToNextPage;
+			prevButton = $("body").find("button#prevButton")[i-1];
 			if (prevButton != null) {
 				prevButton.onclick = self.goToPrevPage;
 			}
@@ -36,6 +36,8 @@ function PageCreator(pageNames) {
 				$(self.getPage(i+1)).hide();
 			}
 		};
+
+
 	},
 
 	this.nextPageNumber = function() {
@@ -44,7 +46,9 @@ function PageCreator(pageNames) {
 		if (self.pageNumber > self.pageNameArray.length) {
 			self.pageNumber = self.pageNameArray.length;
 			end = true;
-		}
+		};
+
+		console.debug("nextPageNumber: self.pageNumber = ", self.pageNumber, ", self.pageNameArray.length = ", self.pageNameArray.length, ", end = ", end);
 		return {
 			edge: end,
 			pageNumber: self.pageNumber
@@ -84,7 +88,7 @@ function PageCreator(pageNames) {
 		var existingDivs = self.getCurrentPage();
 		if (existingDivs.length != 0) {
 			var nextPage = funcToGoToPage();
-			console.debug("existingDiv page = ", existingDivs[0]);
+			console.debug("existingDiv page = ", existingDivs[0], ", nextPage = ", nextPage);
 			if (!nextPage.edge) {
 				$(existingDivs[0]).hide();
 
@@ -97,11 +101,12 @@ function PageCreator(pageNames) {
 	},
 
 	this.goToNextPage = function() {
-		if (self.garmentID < 0) {
-			self.garmentID = newGarment(self.sessionId);
-			console.debug("garmentID = ", self.garmentID);
-		}
+		// if (self.garmentID < 0) {
+		// 	self.garmentID = newGarment(self.sessionId);
+		// 	console.debug("garmentID = ", self.garmentID);
+		// }
 		self.goToPage(self.nextPageNumber);
+		
 	},
 
 	this.goToPrevPage = function() {
