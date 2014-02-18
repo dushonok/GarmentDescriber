@@ -17,38 +17,42 @@
 	var promises = [];
 	var fieldKeys = listFieldKeys();
 
+	var collectValues = function(array, title, values) {
+		array.push(
+			{
+				title: title,
+				values:  values
+			}
+		);
+		console.debug("fieldKeys[i] = ", title, ", array = ", array);
+		
+	};
+
 	var fullInfo = [];
-	for (var i in fieldKeys) {
-		var fieldKey = fieldKeys[i]
-		var deferred = Q.defer();
-		promises.push(deferred);
-		var values = listFieldValues(fieldKey, function() {
-			console.debug("fieldKeys[i] = ", fieldKey, ", values = ", values);
-			fullInfo.push(
-				{
-					title: fieldKey,
-					values:  values
-				}
-			);
-			deferred.resolve();
-		});
-		console.debug("values2 = ", values);
+	for (var i= 0; i < fieldKeys.length; ++i) {
+		(function(){
+			var fieldKey = fieldKeys[i]
+			var deferred = Q.defer();
+			
+			listFieldValues(fieldKey, function(values){
+				//console.debug("success, values = ", values);
+				collectValues(fullInfo, fieldKey, values );
+				//console.debug("resolving defered");
+				deferred.resolve(true);
+			});
+
+			promises.push(deferred.promise);
+		}());
 	}
 
-	Q.all(promises).done(function(){
+	var callback = function(){
+		
+		console.debug("all done, fullInfo = ", fullInfo);
 
-		var pageCreator = new PageCreator(
-			[	
-				{
-					title: "Designers",
-					values: Item.getAllDesigners()
-				},
-				{
-					title: "Garment Type",
-					values: []
-				}
-			]);
-	});
+		var pageCreator = new PageCreator(fullInfo);
+	};
+	console.debug("promises = ", promises);
+	Q.all(promises).then(callback);
 
 	//pageCreator.goToNextPage();
 	
