@@ -25,6 +25,7 @@ function PageCreator(pageNames) {
 				items: self.pageNameArray[i].values,
 				pageHandler: self
 			};
+			
 			htmlPage = new EJS({url: 'js/jmvc/view/page.ejs'}).render(items);
 			$("body").append(htmlPage);
 			$("body").find("button#nextButton")[i].onclick = self.goToNextPage;
