@@ -12,7 +12,7 @@ function PageCreator(pageNames) {
 
 	this.init = function() {
 		var items;
-		var prevButton;
+		var prevButton, startOverButton;
 		var htmlPage;
 
 		this.sessionID = newSession("items");
@@ -33,12 +33,18 @@ function PageCreator(pageNames) {
 			if (prevButton != null) {
 				prevButton.onclick = self.goToPrevPage;
 			}
+
+			startOverButton = $("body").find("button#saveAndRestartButton")[0];
+			if (startOverButton != null) {
+				startOverButton.onclick = self.saveAndRestart;
+			}
+
 			if (i != 0) {
 				$(self.getPage(i+1)).hide();
 			}
 		};
 
-
+		self.saveAndRestart();
 	},
 
 	this.nextPageNumber = function() {
@@ -49,7 +55,31 @@ function PageCreator(pageNames) {
 			end = true;
 		};
 
-		console.debug("nextPageNumber: self.pageNumber = ", self.pageNumber, ", self.pageNameArray.length = ", self.pageNameArray.length, ", end = ", end);
+		return {
+			edge: end,
+			pageNumber: self.pageNumber
+		};
+	},
+
+	this.firstPageNumber = function() {
+		var end = true;
+		self.pageNumber = 1;
+
+		return {
+			edge: end,
+			pageNumber: self.pageNumber
+		};
+	},
+
+
+	this.nextPageNumber = function() {
+		var end = false;
+		++self.pageNumber;
+		if (self.pageNumber > self.pageNameArray.length) {
+			self.pageNumber = self.pageNameArray.length;
+			end = true;
+		};
+
 		return {
 			edge: end,
 			pageNumber: self.pageNumber
@@ -89,23 +119,20 @@ function PageCreator(pageNames) {
 		var existingDivs = self.getCurrentPage();
 		if (existingDivs.length != 0) {
 			var nextPage = funcToGoToPage();
-			console.debug("existingDiv page = ", existingDivs[0], ", nextPage = ", nextPage);
-			if (!nextPage.edge) {
+			
+			//if (!nextPage.edge) {
 				$(existingDivs[0]).hide();
 
 				existingDivs = self.getCurrentPage();
 				// show the next page	
 				$(existingDivs[0]).show();
-			}
+			//}
 			
 		}
 	},
 
 	this.goToNextPage = function() {
-		// if (self.garmentID < 0) {
-		// 	self.garmentID = newGarment(self.sessionId);
-		// 	console.debug("garmentID = ", self.garmentID);
-		// }
+		
 		self.goToPage(self.nextPageNumber);
 		
 	},
@@ -116,7 +143,17 @@ function PageCreator(pageNames) {
 
 	this.setCurrentID = function(id) {
 		self.id = id;
-	}
+	},
+
+	this.saveAndRestart = function() {
+		if (self.garmentID >= 0) {
+			//save
+			console.debug("save now");
+			self.goToPage(self.firstPageNumber);
+		}
+		self.garmentID = newGarment(self.sessionId);
+		console.debug("garmentID = ", self.garmentID);
+	},
 
 	self.init();
 }
