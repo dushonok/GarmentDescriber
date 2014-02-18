@@ -5,7 +5,23 @@
 	<form name=myText>
 		<label for="exampleInputPassword1">Value to store:</label>
 		<input class="form-control"id="input<%= currentPage %>" name="valueToStore" value="">
+
+		<button type="button" accesskey=">"  class="btn btn-info" id="prevButton" <%if (currentPage === 1) { %> disabled <% } %> >
+			    < Previous Field
+		</button>
+		&nbsp;
+		<button type="button" accesskey=">"  class="btn btn-primary" id="nextButton" <%if (currentPage === totalNumberOfPage) { %> disabled <% } %> >
+		    Next Field >
+		</button>
+
+		<%if (currentPage === totalNumberOfPage) { %>
+			&nbsp;
+			<button type="button" accesskey=">"  class="btn btn-danger" id="saveAndRestartButton">
+		    Save Item & Start Over
+		</button>
+		<% } %>
 	</form>
+	
 
 	<% var numberInRow = 5; var i = 0;%>
 
@@ -24,15 +40,5 @@
 	    
 	<% }) %>
 
-	<div class="footer">
-		<br><br><br>
-		<%if (currentPage > 1) { %>
-			<button type="button" accesskey=">"  class="btn btn-default" id="prevButton">
-			    Previous Field <
-			</button>&nbsp;
-		<% } %>
-		<button type="button" accesskey=">"  class="btn btn-default" id="nextButton">
-		    Next Field >
-		</button>
-	</div>
+	
 </div>

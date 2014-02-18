@@ -29,7 +29,7 @@ function PageCreator(pageNames) {
 			htmlPage = new EJS({url: 'js/jmvc/view/page.ejs'}).render(items);
 			$("body").append(htmlPage);
 			$("body").find("button#nextButton")[i].onclick = self.goToNextPage;
-			prevButton = $("body").find("button#prevButton")[i-1];
+			prevButton = $("body").find("button#prevButton")[i];
 			if (prevButton != null) {
 				prevButton.onclick = self.goToPrevPage;
 			}
