@@ -191,7 +191,7 @@ function downloadCSV(sessionId) {
 
 
 function listFieldKeys() {
-  return ["Category", "TaxClass", "ItemMatrix", "Manufacturer", "Vendor"];
+  return ["Category", "TaxClass", "ItemMatrix", "Manufacturer", "Vendor", "Consignors"];
 }
 
 function listFieldValues(fieldKey, callback) {
