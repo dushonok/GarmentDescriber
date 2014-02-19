@@ -16,6 +16,7 @@
 
 	var promises = [];
 	var fieldKeys = listFieldKeys();
+	
 
 	var collectValues = function(array, title, values) {
 		array.push(
@@ -27,6 +28,7 @@
 	};
 
 	var fullInfo = [];
+	var vendors = [];
 	for (var i= 0; i < fieldKeys.length; ++i) {
 		(function(){
 			var fieldKey = fieldKeys[i]
@@ -34,6 +36,9 @@
 			
 			listFieldValues(fieldKey, function(values){
 				//console.debug("success, values = ", values);
+				if (fieldKey === "Vendor") {
+					vendors = values;
+				}
 				collectValues(fullInfo, fieldKey, values );
 				//console.debug("resolving defered");
 				deferred.resolve(true);
@@ -44,10 +49,31 @@
 	}
 
 	var callback = function(){
-		
-		console.debug("all done, fullInfo = ", fullInfo);
 
-		var pageCreator = new PageCreator(fullInfo);
+		var orderedPages = new OrderedHash();
+
+		orderedPages.push("Vintage / New", 
+				["vintage", "new"]);
+
+		orderedPages.push("Vendor", vendors);
+
+		orderedPages.push("Description", []);
+
+		orderedPages.push("Size", 
+			[	
+				"Size 1",
+				"Size 2",
+				"Size 4",
+				"Size 6",
+				"Size 8",
+				"Size 10",
+				"Size 12",
+				"Size 14"] );
+
+		console.debug("all done, fullInfo = ", fullInfo);
+		console.debug("orderedPages = ", orderedPages);
+
+		var pageCreator = new PageCreator(orderedPages);
 	};
 	console.debug("promises = ", promises);
 	Q.all(promises).then(callback);

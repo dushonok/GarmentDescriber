@@ -1,13 +1,18 @@
 
 function PageCreator(pageNames) {
 	var self = this;
+
+	this.pageNameOrderedHash = pageNames;
 	
 	this.pageNumber = 1;
-	this.totalNumberOfPage = pageNames.length;
-	this.pageNameArray = pageNames;
+	this.totalNumberOfPage = this.pageNameOrderedHash.length();
+	
 	this.pageNameTemplate = "page";
+	RowHandler.pageHandler = self;
 
-	this.garmentID = -1;
+	this.row = {
+		garmentID: -1
+	};
 	
 
 	this.init = function() {
@@ -17,13 +22,14 @@ function PageCreator(pageNames) {
 
 		this.sessionID = newSession("items");
 
-		for (var i = 0; i < self.pageNameArray.length; i++) {
+		for (var i = 0; i < self.totalNumberOfPage; i++) {
+			var key = self.pageNameOrderedHash.keys()[i];
+			var value = self.pageNameOrderedHash.value(key);
 			items = {
 				currentPage: i+1,
 				totalNumberOfPage: self.totalNumberOfPage,
-				title: self.pageNameArray[i].title,
-				items: self.pageNameArray[i].values,
-				pageHandler: self
+				title: key,
+				items: value
 			};
 			
 			htmlPage = new EJS({url: 'js/jmvc/view/page.ejs'}).render(items);
@@ -44,16 +50,20 @@ function PageCreator(pageNames) {
 			}
 		};
 
-		self.saveAndRestart();
-		RowHandler.pageHandler = self;
+
+		self.row = {
+			garmentID: newGarment(self.sessionId)
+		};
+		
+		
 	},
 
 	this.nextPageNumber = function() {
 		var end = false;
 		++self.pageNumber;
-		if (self.pageNumber > self.pageNameArray.length) {
-			self.pageNumber = self.pageNameArray.length;
-			end = true;
+		if (self.pageNumber > self.totalNumberOfPage) {
+			self.pageNumber = self.totalNumberOfPage;
+			end = true();
 		};
 
 		return {
@@ -76,8 +86,8 @@ function PageCreator(pageNames) {
 	this.nextPageNumber = function() {
 		var end = false;
 		++self.pageNumber;
-		if (self.pageNumber > self.pageNameArray.length) {
-			self.pageNumber = self.pageNameArray.length;
+		if (self.pageNumber > self.totalNumberOfPage) {
+			self.pageNumber = self.totalNumberOfPage;
 			end = true;
 		};
 
@@ -133,13 +143,13 @@ function PageCreator(pageNames) {
 	},
 
 	this.goToNextPage = function() {
-		
+		self.saveFields();
 		self.goToPage(self.nextPageNumber);
-		
 	},
 
 	this.goToPrevPage = function() {
 		self.goToPage(self.prevPageNumber);
+		self.loadFields();
 	},
 
 	this.setCurrentID = function(id) {
@@ -147,14 +157,36 @@ function PageCreator(pageNames) {
 		self.id = id;
 	},
 
+	this.saveFields = function() {
+		var name = self.pageNameOrderedHash.keys()[self.pageNumber-1];
+		self.row[name] = self.id;
+		saveField(self.sessionID, self.row.garmentID, name, self.id);
+	},
+
+	this.loadFields = function() {
+		// var val = getField(self.sessionID, self.row.garmentID, key);
+		// console.debug("stored val = ", val);
+		// self.row.
+		// RowHandler.itemWasClicked("input" + self.currentPage, val, val);
+	},
+
 	this.saveAndRestart = function() {
-		if (self.garmentID >= 0) {
+		if (self.row.garmentID >= 0) {
+			// add desc - TEMP
+			saveField(self.sessionID, self.row.garmentID, "description", "test from tool");
 			//save
 			console.debug("save now");
-			self.goToPage(self.firstPageNumber);
+			uploadGarment(self.sessionID, self.row.garmentID, function(result) {
+				console.debug("result = ", result);
+				// go to 1st page
+				self.goToPage(self.firstPageNumber);				
+				self.row = {
+					garmentID: newGarment(self.sessionId)
+				};
+				console.debug("garmentID = ", self.row.garmentID);
+			})
 		}
-		self.garmentID = newGarment(self.sessionId);
-		console.debug("garmentID = ", self.garmentID);
+		
 	},
 
 	self.init();
