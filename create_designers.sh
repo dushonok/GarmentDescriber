@@ -2,7 +2,7 @@
 set -e
 
 function create {
-  OUT="$(curl --user 3c9830eea3fa5afd760748ac941feb1a0b97c890f94734c6b16b7d036e816e4d:apikey --data '{"name": "'"$1"'"}' 'https://api.merchantos.com/API/Account/71231/Vendor.json')"
+  OUT="$(curl --user "$(cat key)":apikey --data '{"name": "'"$1"'"}' 'https://api.merchantos.com/API/Account/71231/Vendor.json')"
   if [ "$(echo "$OUT" | grep '{"count":"1"}')" ]; then
     echo "created $1."
   elif [ "$(echo "$OUT" | grep "HTTP/1.1 503")" ]; then
