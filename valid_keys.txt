@@ -1,18 +1,20 @@
-"Quantity"
-"Cost" aka "DefaultCost"
-"Price"
-"AvgCost"
-"Msrp" // manufacturer recommended retail price
-"Tax" // bool
-"ItemType" // "default", "non_inventory", "serialized_asse
-"Description"
-"Year" aka "ModelYear"
-"Upc"// a standard SKU number.
-"Ean"// a standard SKU number.
-"SKU" aka "Sku" aka "customSku"
-"ManufacturerSku"
-"Category" aka "CategoryID"
 "TaxClass" aka "TaxClassID"
-"ItemMatrix" aka "ItemMatrixID"
+"ItemType" // "default", "non_inventory", "serialized_asse
 "Manufacturer" aka "ManufacturerID"
+"Category" aka "CategoryID"
 "VendorID" aka "Vendor" aka "DefaultVendorID"
+"Description"
+"Tags"
+"Price"
+"Msrp" // manufacturer recommended retail price
+"Cost" aka "DefaultCost"
+"Quantity"
+
+"AvgCost"
+"Ean"// a standard SKU number.
+"ItemMatrix" aka "ItemMatrixID"
+"ManufacturerSku"
+"SKU" aka "Sku" aka "customSku"
+"Tax" // bool
+"Upc"// a standard SKU number.
+"Year" aka "ModelYear"
