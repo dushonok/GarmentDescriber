@@ -190,8 +190,7 @@ function downloadCSV(sessionId) {
 }
 
 
-function listFieldKeys(callback) {
-  console.assert(typeof callback === "function");
+function listFieldKeys() {
   return ["Category", "TaxClass", "ItemMatrix", "Manufacturer", "Vendor"];
 }
 
