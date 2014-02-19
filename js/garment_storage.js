@@ -90,6 +90,7 @@ function saveField(sessionId, garmentId, key, value) {
   
   // add it to the end
   pairs[pairs.length] = [key, value];
+  savePermacookie();
 }
 
 
