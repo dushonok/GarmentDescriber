@@ -1,6 +1,8 @@
 // private
 
 function getDefault(dict, key, default_value) {
+  console.assert(typeof dict === "object");
+  console.assert((typeof key === "string") || (typeof key === "number"));
   if (dict[key] === undefined) {
     dict[key] = default_value;
   }
@@ -26,10 +28,14 @@ function savePermacookie() {
 }
 
 function topDict(key) {
+  console.assert(typeof key === "string");
   return getDefault(getPermacookie(), key, {});
 }
 
 function incr(dict, key, first) {
+  console.assert(typeof dict === "object");
+  console.assert(typeof key === "string");
+  console.assert(typeof first === "number");
   var r = getDefault(dict, key, first);
   dict[key] = r + 1;
   return r;
@@ -37,6 +43,8 @@ function incr(dict, key, first) {
 
 // http://jsperf.com/ways-to-0-pad-a-number/5
 function prefixZeroes(length, x) {
+  console.assert(typeof length === "number");
+  console.assert(typeof x === "number");
   var my_string = '' + x;
   for (var to_add = length - my_string.length; to_add > 0; to_add -= 1) {
     my_string = '0' + my_string;
@@ -53,12 +61,15 @@ function download(filename, text) {
 }
 
 function session(sessionId) {
+  console.assert(typeof sessionId === "string");
   return getDefault(topDict("sessions"), sessionId, {});
 }
 function garments(sessionId) {
+  console.assert(typeof sessionId === "string");
   return getDefault(session(sessionId), "garments", []);
 }
 function garment(sessionId, garmentId) {
+  console.assert(typeof sessionId === "string");
   return getDefault(garments(sessionId), garmentId, []);
 }
 
@@ -66,6 +77,7 @@ function garment(sessionId, garmentId) {
 // public
 
 function newSession(username) {
+  console.assert(typeof username === "string");
   var n = incr(topDict("sessionNumber"), username, 1);
   savePermacookie();
   
@@ -73,12 +85,22 @@ function newSession(username) {
 }
 
 function newGarment(sessionId) {
+  console.assert(typeof sessionId === "string");
   return incr(session(sessionId), "nextGarmentId", 0);
 }
 
 
 // edit the field if it exists, or add it to the end of the row otherwise
 function saveField(sessionId, garmentId, key, value) {
+  console.assert(typeof sessionId === "string");
+  console.assert(typeof garmentId === "number");
+  console.assert(typeof key === "string");
+  if (key === "ItemMatrix") {
+    console.assert(typeof value === "object");
+    console.assert(typeof value[0] === "string");
+  } else {
+    console.assert(typeof value === "string");
+  }
   var pairs = garment(sessionId, garmentId);
   for (var i=0; i<pairs.length; ++i) {
     var pair = pairs[i];
@@ -99,6 +121,7 @@ function listSessions() {
 }
 
 function listGarments(sessionId) {
+  console.assert(typeof sessionId === "string");
   var r = [];
   var n = garments(sessionId).length;
   for (var i=0; i<n; ++i) {
@@ -108,6 +131,9 @@ function listGarments(sessionId) {
 }
 
 function getField(sessionId, garmentId, key) {
+  console.assert(typeof sessionId === "string");
+  console.assert(typeof garmentId === "number");
+  console.assert(typeof key === "string");
   var pairs = garment(sessionId, garmentId);
   for (var i=0; i<pairs.length; ++i) {
     var pair = pairs[i];
@@ -120,6 +146,7 @@ function getField(sessionId, garmentId, key) {
 
 // an array of dictionaries from keys to values.
 function exportJson(sessionId) {
+  console.assert(typeof sessionId === "string");
   var r = [];
   var xss = garments(sessionId);
   for (var i=0; i<xss.length; ++i) {
@@ -140,6 +167,7 @@ function exportJson(sessionId) {
 // each of which list all the field values (separated by commas)
 // in the order they were added.
 function exportCSV(sessionId) {
+  console.assert(typeof sessionId === "string");
   var r = [];
   var xss = garments(sessionId);
   for (var i=0; i<xss.length; ++i) {
@@ -157,20 +185,27 @@ function exportCSV(sessionId) {
 
 // prompt the user to download a file named "Nadya003.csv"
 function downloadCSV(sessionId) {
+  console.assert(typeof sessionId === "string");
   download(sessionId + ".csv", exportCSV(sessionId));
 }
 
 
 function listFieldKeys(callback) {
+  console.assert(typeof callback === "function");
   return ["Category", "TaxClass", "ItemMatrix", "Manufacturer", "Vendor"];
 }
 
 function listFieldValues(fieldKey, callback) {
+  console.assert(typeof fieldKey === "string");
+  console.assert(typeof callback === "function");
   var url = "http://gelisam.com/ff/GarmentDescriber/list-field-values.php?key=" + fieldKey;
   $.getJSON(url, callback);
 }
 
 function uploadGarment(sessionId, garmentId, callback) {
+  console.assert(typeof sessionId === "string");
+  console.assert(typeof garmentId === "number");
+  console.assert(typeof callback === "function");
   var url = "http://gelisam.com/ff/GarmentDescriber/upload-item.php";
   $.ajax({
     type: "POST",
