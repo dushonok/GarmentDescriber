@@ -47,8 +47,16 @@
 	var callback = function(){
 
 		var orderedPages = new OrderedHash();
+		var fieldRealNames = {};
+		
+		var vintageNewName = "Vintage / New";
+		var sizeName = "Size";
 
-		orderedPages.push("Vintage / New", {
+		// real field names
+		fieldRealNames[vintageNewName] = "Manufacturer";
+		fieldRealNames[sizeName] = "Manufacturer";
+
+		orderedPages.push(vintageNewName, {
 			"2":"vintage", 
 			"": "new"
 		});
@@ -69,11 +77,11 @@
 
 		var sizesHash = {};
 		UtilFunctions.arrayToHash(sizes, sizesHash);
-		orderedPages.push("Size", sizesHash);		
+		orderedPages.push(sizeName, sizesHash);		
 
 		console.debug("all done, orderedPages = ", orderedPages);
 
-		var pageCreator = new PageCreator(orderedPages);
+		var pageCreator = new PageCreator(orderedPages, fieldRealNames);
 	};
 	console.debug("promises = ", promises);
 	Q.all(promises).then(callback);

@@ -1,8 +1,9 @@
 
-function PageCreator(pageNames) {
+function PageCreator(pageNames, fieldRealNames) {
 	var self = this;
 
 	this.pageNameOrderedHash = pageNames;
+	this.fieldRealNames = fieldRealNames;
 	
 	this.pageNumber = 1;
 	this.totalNumberOfPage = this.pageNameOrderedHash.length();
@@ -161,6 +162,13 @@ function PageCreator(pageNames) {
 	this.saveFields = function() {
 		if (self.id !== "") {
 			var name = self.pageNameOrderedHash.keys()[self.pageNumber-1];
+
+			Object.keys(self.fieldRealNames).forEach(function (key) { 
+				if (name === key) {
+			    	name = self.fieldRealNames[key];
+			    }
+			})
+			
 			self.row[name] = self.id;
 			saveField(self.sessionID, self.row.garmentID, name, self.id);
 		}
