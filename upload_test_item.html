@@ -9,7 +9,8 @@
       $(document).ready(function() {
         var sessionId = newSession("TestUser");
         var garmentId = newGarment(sessionId);
-        saveField(sessionId, garmentId, "description", "Item to test quantity.");
+        saveField(sessionId, garmentId, "description", "Item to test tags.");
+        saveField(sessionId, garmentId, "tags", "sam,bestseller");
         saveField(sessionId, garmentId, "quantity", "3");
         saveField(sessionId, garmentId, "price", "120.0");
         saveField(sessionId, garmentId, "Category", "12");
