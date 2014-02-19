@@ -9,14 +9,16 @@
       $(document).ready(function() {
         var sessionId = newSession("TestUser");
         var garmentId = newGarment(sessionId);
-        saveField(sessionId, garmentId, "description", "Item to test tags.");
+        saveField(sessionId, garmentId, "description", "Sam's test item"); // the description is the only mandatory field.
+        saveField(sessionId, garmentId, "TaxClass", "2"); // {"2": "item"}
+        // TODO: Type
+        saveField(sessionId, garmentId, "Manufacturer", "6"); // {"6": "Les Enfants Savages"}
+        saveField(sessionId, garmentId, "Category", "12"); // {"12":"canadian designer/dress"}
+        saveField(sessionId, garmentId, "Vendor", "334"); // {"334":"LEs Enfants Savages"}
+        
         saveField(sessionId, garmentId, "tags", "sam,bestseller");
         saveField(sessionId, garmentId, "quantity", "3");
         saveField(sessionId, garmentId, "price", "120.0");
-        saveField(sessionId, garmentId, "Category", "12");
-        saveField(sessionId, garmentId, "TaxClass", "2");
-        saveField(sessionId, garmentId, "Manufacturer", "6");
-        saveField(sessionId, garmentId, "Vendor", "334");
         //saveField(sessionId, garmentId, "ItemMatrix", ["4:1", "green", "medium"]);
         uploadGarment(sessionId, garmentId, function(data) {
           $("body").html(JSON.stringify(data));
