@@ -159,9 +159,11 @@ function PageCreator(pageNames) {
 	},
 
 	this.saveFields = function() {
-		var name = self.pageNameOrderedHash.keys()[self.pageNumber-1];
-		self.row[name] = self.id;
-		saveField(self.sessionID, self.row.garmentID, name, self.id);
+		if (self.id !== "") {
+			var name = self.pageNameOrderedHash.keys()[self.pageNumber-1];
+			self.row[name] = self.id;
+			saveField(self.sessionID, self.row.garmentID, name, self.id);
+		}
 	},
 
 	this.loadFields = function() {

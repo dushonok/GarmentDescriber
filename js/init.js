@@ -19,7 +19,7 @@
 	
 
 	var fullInfo = [];
-	var vendors, consignors;
+	var vendors, consignors, categories, manufacturers;
 	for (var i= 0; i < fieldKeys.length; ++i) {
 		(function(){
 			var fieldKey = fieldKeys[i]
@@ -31,6 +31,10 @@
 					vendors = values;
 				} else if (fieldKey === "Consignors") {
 					consignors = values;
+				} else if (fieldKey === "Category") {
+					categories = values;
+				} else if (fieldKey === "Manufacturer") {
+					manufacturers = values;
 				}
 				//console.debug("resolving defered");
 				deferred.resolve(true);
@@ -44,9 +48,10 @@
 
 		var orderedPages = new OrderedHash();
 
-		var vintageNewHash = {};
-		UtilFunctions.arrayToHash(["vintage", "new"], vintageNewHash);
-		orderedPages.push("Vintage / New", vintageNewHash);
+		orderedPages.push("Vintage / New", {
+			"2":"vintage", 
+			"": "new"
+		});
 
 		orderedPages.push("Vendor", vendors);
 		orderedPages.push("Consignor", consignors);

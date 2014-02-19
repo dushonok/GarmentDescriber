@@ -31,7 +31,7 @@
 	    		value="<%= value%>" \ 
 	    		onclick="RowHandler.itemWasClicked('input<%= currentPage %>', '<%= key%>', '<%= value%>')"
 	    		>
-	        <a href=""><%= i %></a>. <%= value %>
+	        <%= i+1 %>. <%= value %>
 	    </button>
 	    <% if (i%numberInRow === 0 && i != 0) {%>
 			<br>
