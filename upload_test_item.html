@@ -9,7 +9,7 @@
       $(document).ready(function() {
         var sessionId = newSession("TestUser");
         var garmentId = newGarment(sessionId);
-        saveField(sessionId, garmentId, "description", "Sam's test item"); // the description is the only mandatory field.
+        saveField(sessionId, garmentId, "Description", "Sam's test item"); // the description is the only mandatory field.
         
         saveField(sessionId, garmentId, "TaxClass", "2"); // {"2": "item"}
         // TODO: Type
@@ -18,11 +18,11 @@
         saveField(sessionId, garmentId, "Vendor", "334"); // {"334":"LEs Enfants Savages"}
         // Note: the above sets the "default vendor".
         
-        saveField(sessionId, garmentId, "tags", "sam,bestseller");
-        saveField(sessionId, garmentId, "price", "120.0");
-        saveField(sessionId, garmentId, "msrp", "125.0");
-        saveField(sessionId, garmentId, "cost", "100.0");
-        saveField(sessionId, garmentId, "quantity", "3");
+        saveField(sessionId, garmentId, "Tags", "sam,bestseller");
+        saveField(sessionId, garmentId, "Price", "120.0");
+        saveField(sessionId, garmentId, "Msrp", "125.0");
+        saveField(sessionId, garmentId, "Cost", "100.0");
+        saveField(sessionId, garmentId, "Quantity", "3");
         
         //saveField(sessionId, garmentId, "ItemMatrix", ["4:1", "green", "medium"]);
         // Note: "ItemMatrix" is weird. Don't use it.
