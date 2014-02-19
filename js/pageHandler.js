@@ -20,7 +20,8 @@ function PageCreator(pageNames) {
 		var prevButton, startOverButton;
 		var htmlPage;
 
-		this.sessionID = newSession("items");
+		window.localStorage.clear();
+		self.sessionID = newSession("items");
 
 		for (var i = 0; i < self.totalNumberOfPage; i++) {
 			var key = self.pageNameOrderedHash.keys()[i];
@@ -52,7 +53,7 @@ function PageCreator(pageNames) {
 
 
 		self.row = {
-			garmentID: newGarment(self.sessionId)
+			garmentID: newGarment(self.sessionID)
 		};
 		
 		
@@ -172,18 +173,18 @@ function PageCreator(pageNames) {
 
 	this.saveAndRestart = function() {
 		if (self.row.garmentID >= 0) {
-			// add desc - TEMP
-			saveField(self.sessionID, self.row.garmentID, "description", "test from tool");
 			//save
 			console.debug("save now");
 			uploadGarment(self.sessionID, self.row.garmentID, function(result) {
 				console.debug("result = ", result);
-				// go to 1st page
-				self.goToPage(self.firstPageNumber);				
-				self.row = {
-					garmentID: newGarment(self.sessionId)
-				};
-				console.debug("garmentID = ", self.row.garmentID);
+				if (result.httpCode == undefined) {
+					// go to 1st page
+					self.goToPage(self.firstPageNumber);				
+					self.row = {
+						garmentID: newGarment(self.sessionID)
+					};
+					console.debug("garmentID = ", self.row.garmentID);
+				}
 			})
 		}
 		

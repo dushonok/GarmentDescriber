@@ -18,17 +18,8 @@
 	var fieldKeys = listFieldKeys();
 	
 
-	var collectValues = function(array, title, values) {
-		array.push(
-			{
-				title: title,
-				values:  values
-			}
-		);
-	};
-
 	var fullInfo = [];
-	var vendors = [];
+	var vendors, consignors;
 	for (var i= 0; i < fieldKeys.length; ++i) {
 		(function(){
 			var fieldKey = fieldKeys[i]
@@ -38,8 +29,9 @@
 				//console.debug("success, values = ", values);
 				if (fieldKey === "Vendor") {
 					vendors = values;
+				} else if (fieldKey === "Consignors") {
+					consignors = values;
 				}
-				collectValues(fullInfo, fieldKey, values );
 				//console.debug("resolving defered");
 				deferred.resolve(true);
 			});
@@ -52,26 +44,29 @@
 
 		var orderedPages = new OrderedHash();
 
-		orderedPages.push("Vintage / New", 
-				["vintage", "new"]);
+		var vintageNewHash = {};
+		UtilFunctions.arrayToHash(["vintage", "new"], vintageNewHash);
+		orderedPages.push("Vintage / New", vintageNewHash);
 
 		orderedPages.push("Vendor", vendors);
+		orderedPages.push("Consignor", consignors);
 
-		orderedPages.push("Description", []);
+		orderedPages.push("Description", {});
 
-		orderedPages.push("Size", 
+		var sizes =
 			[	
-				"Size 1",
-				"Size 2",
-				"Size 4",
-				"Size 6",
-				"Size 8",
-				"Size 10",
-				"Size 12",
-				"Size 14"] );
+				"Size XS",
+				"Size S",
+				"Size M",
+				"Size L",
+				"Size XL",
+				"Size XXL"];
 
-		console.debug("all done, fullInfo = ", fullInfo);
-		console.debug("orderedPages = ", orderedPages);
+		var sizesHash = {};
+		UtilFunctions.arrayToHash(sizes, sizesHash);
+		orderedPages.push("Size", sizesHash);		
+
+		console.debug("all done, orderedPages = ", orderedPages);
 
 		var pageCreator = new PageCreator(orderedPages);
 	};

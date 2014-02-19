@@ -29,7 +29,7 @@
 		<% var value = items[key];  %>
 		<button type="button" id="button<%= i %>" class="btn btn-default" \ 
 	    		value="<%= value%>" \ 
-	    		onclick="RowHandler.itemWasClicked('input<%= currentPage %>', <%= key%>, '<%= value%>')"
+	    		onclick="RowHandler.itemWasClicked('input<%= currentPage %>', '<%= key%>', '<%= value%>')"
 	    		>
 	        <a href=""><%= i %></a>. <%= value %>
 	    </button>
