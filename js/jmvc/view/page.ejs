@@ -2,15 +2,23 @@
 	<h5>Page <%= currentPage %> out of <%= totalNumberOfPage %></h5>
 	<h3><%= title %></h3>
 
+	<% var clickedKey, clickedValue; %>
+	<% var inputName = "input" + currentPage; %>
+
 	<form name=myText>
 		<label for="exampleInputPassword1">Value to store:</label>
 		<input class="form-control"id="input<%= currentPage %>" name="valueToStore" value="">
 
-		<button type="button" accesskey=">"  class="btn btn-info btn-small" id="prevButton" <%if (currentPage === 1) { %> disabled <% } %> >
+		<button type="button" accesskey=">"  class="btn btn-info btn-small" \ 
+			id="prevButton" <%if (currentPage === 1) { %> disabled <% } %> >
 			    < Previous Field
 		</button>
 		&nbsp;
-		<button type="button" accesskey=">"  class="btn btn-primary btn-small" id="nextButton" <%if (currentPage === totalNumberOfPage) { %> disabled <% } %> >
+		<button type="button" accesskey=">"  \ 
+			class="btn btn-primary btn-small" \ 
+			id="nextButton" <%if (currentPage === totalNumberOfPage) { %> disabled <% } %> \ 
+			onclick="RowHandler.itemWasClicked('<%= inputName %>', <%= takeInputValue%>)" 
+			>
 		    Next Field >
 		</button>
 
@@ -24,13 +32,18 @@
 	
 
 	<% var numberInRow = 5; var i = 0;%>
+	<% var setClickedValues = function(key, value) { %>
+		<% clickedKey = key; clickedValue = value; %>
+		<% console.debug("inputName = ", inputName, document, document.getElementById(inputName));
+		   
+		%>
+	<%} %>
 
 	<% Object.keys(items).forEach(function (key) { %>
 		<% var value = items[key];  %>
 		<button type="button" id="button<%= i %>" class="btn btn-default" \ 
-	    		value="<%= value%>" \ 
-	    		onclick="RowHandler.itemWasClicked('input<%= currentPage %>', '<%= key%>', '<%= value%>')"
-	    		>
+	    		value="<%= value%>" \
+	    		onclick="RowHandler.setValue('<%= inputName %>','<%= key%>', '<%= value%>')">
 	        <%= i+1 %>. <%= value %>
 	    </button>
 	    <% if (i%numberInRow === 0 && i != 0) {%>

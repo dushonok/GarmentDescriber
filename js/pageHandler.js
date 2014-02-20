@@ -31,12 +31,13 @@ function PageCreator(pageNames, fieldRealNames) {
 				currentPage: i+1,
 				totalNumberOfPage: self.totalNumberOfPage,
 				title: key,
-				items: value
+				items: value,
+				takeInputValue: key === "Description"
 			};
 			
 			htmlPage = new EJS({url: 'js/jmvc/view/page.ejs'}).render(items);
 			$("body").append(htmlPage);
-			$("body").find("button#nextButton")[i].onclick = self.goToNextPage;
+			//$("body").find("button#nextButton")[i].onclick = self.goToNextPage;
 			prevButton = $("body").find("button#prevButton")[i];
 			if (prevButton != null) {
 				prevButton.onclick = self.goToPrevPage;
