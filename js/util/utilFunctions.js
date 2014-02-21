@@ -3,7 +3,7 @@ var UtilFunctions = function(){}
 
 UtilFunctions.removeSpaces = function(str) {
 	var pattern = /\s/g;
-	var res = str.replace(pattern, "");
+	var res = str.replace(pattern, "-");
 	return res;
 };
 

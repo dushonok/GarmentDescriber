@@ -45,7 +45,7 @@
 		<% var value = items[key];  %>
 		<button type="button" id="button<%= i %>" class="btn btn-default" \ 
 	    		value="<%= value%>" \
-	    		onclick="RowHandler.setValue('<%= inputName %>','<%= key%>', '<%= value%>', '<%= addToExisting%>')">
+	    		onclick="RowHandler.setValue('<%= inputName %>','<%= key%>', '<%= value%>', <%= addToExisting%>)">
 	        <%= i+1 %>. <%= value %>
 	    </button>
 	    <% if (i%numberInRow === 0 && i != 0) {%>
