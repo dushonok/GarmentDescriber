@@ -17,7 +17,7 @@
 		<button type="button" accesskey=">"  \ 
 			class="btn btn-primary btn-small" \ 
 			id="nextButton" <%if (currentPage === totalNumberOfPage) { %> disabled <% } %> \ 
-			onclick="RowHandler.saveValueAndGoToNext(<%= takeInputValue%>)" 
+			onclick="RowHandler.saveValueAndGoToNext()" 
 			>
 		    Next Field >
 		</button>
@@ -25,7 +25,7 @@
 		<%if (currentPage === totalNumberOfPage) { %>
 			&nbsp;
 			<button type="button" accesskey=">"  class="btn btn-danger" id="saveAndRestartButton" \
-				onclick="RowHandler.saveAndRestart(<%= takeInputValue%>)" 
+				onclick="RowHandler.saveAndRestart()" 
 				>
 		    Save Item & Start Over
 		</button>
@@ -34,13 +34,7 @@
 	
 
 	<% var numberInRow = 5; var i = 0;%>
-	<% var setClickedValues = function(key, value) { %>
-		<% clickedKey = key; clickedValue = value; %>
-		<% console.debug("inputName = ", inputName, document, document.getElementById(inputName));
-		   
-		%>
-	<%} %>
-
+	
 	<% Object.keys(items).forEach(function (key) { %>
 		<% var value = items[key];  %>
 		<button type="button" id="button<%= i %>" class="btn btn-default" \ 

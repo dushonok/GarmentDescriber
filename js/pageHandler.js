@@ -36,7 +36,6 @@ function PageCreator(pageNames, fieldRealNames) {
 				totalNumberOfPage: self.totalNumberOfPage,
 				title: key,
 				items: value,
-				takeInputValue: UtilFunctions.isEmpty(value),
 				addToExisting: key === PageCreator.tagsFieldName
 			};
 			
@@ -238,7 +237,13 @@ function PageCreator(pageNames, fieldRealNames) {
 
 	this.getCurrentInputName = function() {
 		return self.inputNameTemplate + self.pageNumber;
-	}
+	},
+
+	this.isCurrentTakeInputValue = function() {
+		var key = self.getFieldNameByNumber(self.pageNumber-1);
+		var value = self.pageNameOrderedHash.value(key);
+		return UtilFunctions.isEmpty(value);
+	},
 
 	self.init();
 }

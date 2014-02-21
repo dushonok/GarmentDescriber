@@ -4,30 +4,34 @@ var clickedValue;
 
 
 RowHandler.setValue = function(value, valueToShow, addToExisting) {
+	var inputName = RowHandler.pageHandler.getCurrentInputName();
 	clickedValue = value;
+	
 	if (addToExisting) {
-		var fieldValue = document.getElementById(RowHandler.pageHandler.getCurrentInputName()).value;
-		document.getElementById(RowHandler.pageHandler.getCurrentInputName()).value += fieldValue !== "" ? ", " : "";
-		document.getElementById(RowHandler.pageHandler.getCurrentInputName()).value += valueToShow;
+		var fieldValue = document.getElementById(inputName).value;
+		document.getElementById(inputName).value += fieldValue !== "" ? ", " : "";
+		document.getElementById(inputName).value += valueToShow;
 	} else {
-		document.getElementById(RowHandler.pageHandler.getCurrentInputName()).value = valueToShow;
+		document.getElementById(inputName).value = valueToShow;
 	}
 }
 
-RowHandler.saveValue = function(takeInputValue) {
-	var realValue = takeInputValue ? 
-		document.getElementById(RowHandler.pageHandler.getCurrentInputName()).value : 
+RowHandler.saveValue = function() {
+	var inputName = RowHandler.pageHandler.getCurrentInputName();
+	var isTakeInputValue = RowHandler.pageHandler.isCurrentTakeInputValue();
+	var realValue = isTakeInputValue ? 
+		document.getElementById(inputName).value : 
 		clickedValue;
 	RowHandler.pageHandler.setCurrentID(realValue);
 	clickedValue = "";
 }
 
-RowHandler.saveValueAndGoToNext = function(takeInputValue) {
-	RowHandler.saveValue(takeInputValue);
+RowHandler.saveValueAndGoToNext = function() {
+	RowHandler.saveValue();
 	RowHandler.pageHandler.goToNextPage();
 }
 
-RowHandler.saveAndRestart = function(takeInputValue) {
-	RowHandler.saveValue(takeInputValue);
+RowHandler.saveAndRestart = function() {
+	RowHandler.saveValue();
 	RowHandler.pageHandler.saveAndRestart();
 }
