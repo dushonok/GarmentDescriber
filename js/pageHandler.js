@@ -204,4 +204,3 @@ function PageCreator(pageNames, fieldRealNames) {
 	self.init();
 }
 
-PageCreator
