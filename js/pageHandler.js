@@ -22,7 +22,6 @@ function PageCreator(pageNames, fieldRealNames) {
 		var prevButton, startOverButton;
 		var htmlPage;
 
-		PageCreator.clearFields();
 		self.initValues();
 		window.localStorage.clear();
 		self.sessionID = newSession("items");
@@ -68,6 +67,7 @@ function PageCreator(pageNames, fieldRealNames) {
 
 	this.initValues = function() {
 		self.onConsingment = false;	
+		PageCreator.clearFields();
 	},
 
 	this.isVendorPage = function() {
