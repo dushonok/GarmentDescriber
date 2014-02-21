@@ -61,8 +61,15 @@
 			"": "new"
 		});
 
-		orderedPages.push("Vendor", vendors);
-		orderedPages.push("Consignor", consignors);
+		orderedPages.push(PageCreator.consignmentFieldName, {
+			0: "no",
+			1: "yes"
+		});
+
+		orderedPages.push("Category", categories);
+
+		orderedPages.push(PageCreator.vendorFieldName, vendors);
+		orderedPages.push(PageCreator.consignorFieldName, consignors);
 
 		orderedPages.push("Description", {});
 

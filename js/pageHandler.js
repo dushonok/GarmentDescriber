@@ -9,6 +9,7 @@ function PageCreator(pageNames, fieldRealNames) {
 	this.totalNumberOfPage = this.pageNameOrderedHash.length();
 	
 	this.pageNameTemplate = "page";
+	this.onConsingment = false;
 	RowHandler.pageHandler = self;
 
 	this.row = {
@@ -21,11 +22,12 @@ function PageCreator(pageNames, fieldRealNames) {
 		var prevButton, startOverButton;
 		var htmlPage;
 
+		self.initValues();
 		window.localStorage.clear();
 		self.sessionID = newSession("items");
 
 		for (var i = 0; i < self.totalNumberOfPage; i++) {
-			var key = self.pageNameOrderedHash.keys()[i];
+			var key = self.getFieldNameByNumber(i);
 			var value = self.pageNameOrderedHash.value(key);
 			items = {
 				currentPage: i+1,
@@ -61,6 +63,12 @@ function PageCreator(pageNames, fieldRealNames) {
 		
 	},
 
+	this.initValues = function() {
+		self.onConsingment = false;	
+	},
+
+	
+
 	this.nextPageNumber = function() {
 		var end = false;
 		++self.pageNumber;
@@ -89,6 +97,13 @@ function PageCreator(pageNames, fieldRealNames) {
 	this.nextPageNumber = function() {
 		var end = false;
 		++self.pageNumber;
+		if (self.onConsingment && 
+			self.getFieldNameByNumber(self.pageNumber-1) === PageCreator.vendorFieldName ) {
+			++self.pageNumber;
+		} else if (!self.onConsingment && 
+			self.getFieldNameByNumber(self.pageNumber-1) === PageCreator.consignorFieldName ) {
+			++self.pageNumber;
+		}
 		if (self.pageNumber > self.totalNumberOfPage) {
 			self.pageNumber = self.totalNumberOfPage;
 			end = true;
@@ -160,18 +175,28 @@ function PageCreator(pageNames, fieldRealNames) {
 		self.id = id;
 	},
 
+	this.getFieldNameByNumber = function(fieldNumber) {
+		return self.pageNameOrderedHash.keys()[fieldNumber];
+	}
+
 	this.saveFields = function() {
 		if (self.id !== "") {
-			var name = self.pageNameOrderedHash.keys()[self.pageNumber-1];
+			var name = self.getFieldNameByNumber(self.pageNumber-1);
 
 			Object.keys(self.fieldRealNames).forEach(function (key) { 
 				if (name === key) {
 			    	name = self.fieldRealNames[key];
 			    }
 			})
-			
-			self.row[name] = self.id;
-			saveField(self.sessionID, self.row.garmentID, name, self.id);
+
+			console.debug("saveFields, name = ", name);
+			if (name === PageCreator.consignmentFieldName) {
+				self.onConsingment = self.id === "1";
+				console.debug("Item is on consingment: ", self.onConsingment);
+			} else {
+				self.row[name] = self.id;
+				saveField(self.sessionID, self.row.garmentID, name, self.id);
+			}
 		}
 	},
 
@@ -189,6 +214,7 @@ function PageCreator(pageNames, fieldRealNames) {
 			uploadGarment(self.sessionID, self.row.garmentID, function(result) {
 				console.debug("result = ", result);
 				if (result.httpCode == undefined) {
+					self.initValues();
 					// go to 1st page
 					self.goToPage(self.firstPageNumber);				
 					self.row = {
@@ -204,3 +230,6 @@ function PageCreator(pageNames, fieldRealNames) {
 	self.init();
 }
 
+PageCreator.consignmentFieldName = "Consignment";
+PageCreator.vendorFieldName = "Vendor";
+PageCreator.consignorFieldName = "Consignor";
