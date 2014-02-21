@@ -34,7 +34,9 @@ function PageCreator(pageNames, fieldRealNames) {
 				totalNumberOfPage: self.totalNumberOfPage,
 				title: key,
 				items: value,
-				takeInputValue: key === "Description"
+				takeInputValue: key === PageCreator.descriptionFieldName || 
+								key === PageCreator.priceFieldName,
+				addToExisting: key === PageCreator.tagsFieldName
 			};
 			
 			htmlPage = new EJS({url: 'js/jmvc/view/page.ejs'}).render(items);
@@ -186,13 +188,13 @@ function PageCreator(pageNames, fieldRealNames) {
 			    }
 			})
 
-			console.debug("saveFields, name = ", name);
 			if (name === PageCreator.consignmentFieldName) {
 				self.onConsingment = self.id === "1";
 				console.debug("Item is on consingment: ", self.onConsingment);
 			} else {
 				self.row[name] = self.id;
 				saveField(self.sessionID, self.row.garmentID, name, self.id);
+				self.id = "";
 			}
 		}
 	},
@@ -230,3 +232,7 @@ function PageCreator(pageNames, fieldRealNames) {
 PageCreator.consignmentFieldName = "Consignment";
 PageCreator.vendorFieldName = "Vendor";
 PageCreator.consignorFieldName = "Consignor";
+PageCreator.tagsFieldName = "Tags";
+
+PageCreator.descriptionFieldName = "Description";
+PageCreator.priceFieldName = "Price";

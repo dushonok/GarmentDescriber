@@ -54,7 +54,8 @@
 
 		// real field names
 		fieldRealNames[vintageNewName] = "Manufacturer";
-		fieldRealNames[sizeName] = "Manufacturer";
+		fieldRealNames[PageCreator.consignorFieldName] = PageCreator.tagsFieldName;
+		fieldRealNames[sizeName] = PageCreator.tagsFieldName;
 
 		orderedPages.push(vintageNewName, {
 			"2":"vintage", 
@@ -84,7 +85,20 @@
 
 		var sizesHash = {};
 		UtilFunctions.arrayToHash(sizes, sizesHash);
-		orderedPages.push(sizeName, sizesHash);		
+		orderedPages.push(sizeName, sizesHash);	
+
+		orderedPages.push(PageCreator.priceFieldName, {});
+
+		var tags = [
+				"men",
+				"basic",
+				"colourful",
+				"spring-summer",
+				"fall-winter"
+		];
+		var tagsHash = {};
+		UtilFunctions.arrayToHash(tags, tagsHash);
+		orderedPages.push(PageCreator.tagsFieldName, tagsHash);
 
 		console.debug("all done, orderedPages = ", orderedPages);
 

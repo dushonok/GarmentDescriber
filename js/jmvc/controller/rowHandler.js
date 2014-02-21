@@ -3,9 +3,15 @@ function RowHandler() {}
 var clickedValue;
 
 
-RowHandler.setValue = function(inputName, value, valueToShow) {
+RowHandler.setValue = function(inputName, value, valueToShow, addToExisting) {
 	clickedValue = value;
-	document.getElementById(inputName).value = valueToShow;
+	if (addToExisting) {
+		var fieldValue = document.getElementById(inputName).value;
+		document.getElementById(inputName).value += fieldValue !== "" ? ", " : "";
+		document.getElementById(inputName).value += valueToShow;
+	} else {
+		document.getElementById(inputName).value = valueToShow;
+	}
 }
 
 RowHandler.saveValue = function(inputName, takeInputValue) {
