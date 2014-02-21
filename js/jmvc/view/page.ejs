@@ -17,14 +17,16 @@
 		<button type="button" accesskey=">"  \ 
 			class="btn btn-primary btn-small" \ 
 			id="nextButton" <%if (currentPage === totalNumberOfPage) { %> disabled <% } %> \ 
-			onclick="RowHandler.itemWasClicked('<%= inputName %>', <%= takeInputValue%>)" 
+			onclick="RowHandler.saveValueAndGoToNext('<%= inputName %>', <%= takeInputValue%>)" 
 			>
 		    Next Field >
 		</button>
 
 		<%if (currentPage === totalNumberOfPage) { %>
 			&nbsp;
-			<button type="button" accesskey=">"  class="btn btn-danger" id="saveAndRestartButton">
+			<button type="button" accesskey=">"  class="btn btn-danger" id="saveAndRestartButton" \
+				onclick="RowHandler.saveAndRestart('<%= inputName %>', <%= takeInputValue%>)" 
+				>
 		    Save Item & Start Over
 		</button>
 		<% } %>
