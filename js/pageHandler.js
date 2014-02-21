@@ -35,7 +35,10 @@ function PageCreator(pageNames, fieldRealNames) {
 				title: key,
 				items: value,
 				takeInputValue: key === PageCreator.descriptionFieldName || 
-								key === PageCreator.priceFieldName,
+								key === PageCreator.priceFieldName ||
+								key === PageCreator.msrpFieldName ||
+								key === PageCreator.defaultCostFieldName ||
+								key === PageCreator.quantityFieldName,
 				addToExisting: key === PageCreator.tagsFieldName
 			};
 			
@@ -242,3 +245,6 @@ PageCreator.tagsFieldName = "Tags";
 
 PageCreator.descriptionFieldName = "Description";
 PageCreator.priceFieldName = "Price";
+PageCreator.msrpFieldName = "MSRP";
+PageCreator.defaultCostFieldName = "Default Cost";
+PageCreator.quantityFieldName = "Quantity";

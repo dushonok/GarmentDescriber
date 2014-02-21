@@ -56,6 +56,9 @@
 		fieldRealNames[vintageNewName] = "Manufacturer";
 		fieldRealNames[PageCreator.consignorFieldName] = PageCreator.tagsFieldName;
 		fieldRealNames[sizeName] = PageCreator.tagsFieldName;
+		fieldRealNames[PageCreator.defaultCostFieldName] = "DefaultCost";
+		fieldRealNames[PageCreator.msrpFieldName] = "Msrp";
+		
 
 		orderedPages.push(vintageNewName, {
 			"2":"vintage", 
@@ -88,11 +91,15 @@
 		orderedPages.push(sizeName, sizesHash);	
 
 		orderedPages.push(PageCreator.priceFieldName, {});
+		orderedPages.push(PageCreator.msrpFieldName, {});
+		orderedPages.push(PageCreator.defaultCostFieldName, {});
+		orderedPages.push(PageCreator.quantityFieldName, {});
 
 		var tags = [
 				"men",
 				"basic",
 				"colourful",
+				"online",
 				"spring-summer",
 				"fall-winter"
 		];
