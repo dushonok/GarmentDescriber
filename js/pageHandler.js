@@ -67,20 +67,12 @@ function PageCreator(pageNames, fieldRealNames) {
 		self.onConsingment = false;	
 	},
 
-	
+	this.isVendorPage = function() {
+		return self.getFieldNameByNumber(self.pageNumber-1) === PageCreator.vendorFieldName;
+	},
 
-	this.nextPageNumber = function() {
-		var end = false;
-		++self.pageNumber;
-		if (self.pageNumber > self.totalNumberOfPage) {
-			self.pageNumber = self.totalNumberOfPage;
-			end = true();
-		};
-
-		return {
-			edge: end,
-			pageNumber: self.pageNumber
-		};
+	this.isConsignorPage = function() {
+		return self.getFieldNameByNumber(self.pageNumber-1) === PageCreator.consignorFieldName;
 	},
 
 	this.firstPageNumber = function() {
@@ -97,11 +89,9 @@ function PageCreator(pageNames, fieldRealNames) {
 	this.nextPageNumber = function() {
 		var end = false;
 		++self.pageNumber;
-		if (self.onConsingment && 
-			self.getFieldNameByNumber(self.pageNumber-1) === PageCreator.vendorFieldName ) {
+		if (self.onConsingment && self.isVendorPage() ) {
 			++self.pageNumber;
-		} else if (!self.onConsingment && 
-			self.getFieldNameByNumber(self.pageNumber-1) === PageCreator.consignorFieldName ) {
+		} else if (!self.onConsingment && self.isConsignorPage() ) {
 			++self.pageNumber;
 		}
 		if (self.pageNumber > self.totalNumberOfPage) {
@@ -118,6 +108,13 @@ function PageCreator(pageNames, fieldRealNames) {
 	this.prevPageNumber = function() {
 		var begin = false;
 		--self.pageNumber;
+		
+		if (self.onConsingment && self.isVendorPage() ) {
+			--self.pageNumber;
+		} else if (!self.onConsingment && self.isConsignorPage() ) {
+			--self.pageNumber;
+		}
+
 		if (self.pageNumber < 1) {
 			self.pageNumber = 1;
 			begin = true;
