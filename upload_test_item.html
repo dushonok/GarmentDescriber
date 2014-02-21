@@ -10,6 +10,7 @@
         var sessionId = newSession("TestUser");
         var garmentId = newGarment(sessionId);
         saveField(sessionId, garmentId, "Description", "Sam's test item"); // the description is the only mandatory field.
+        saveField(sessionId, garmentId, "Note", "This is a test item created for the purpose of testing our uploading tool."); // the description is the only mandatory field.
         
         saveField(sessionId, garmentId, "Manufacturer", "2"); // {"2": "vintage"}
         saveField(sessionId, garmentId, "Category", "12"); // {"12":"canadian designer/dress"}
