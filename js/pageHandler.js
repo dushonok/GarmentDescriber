@@ -22,6 +22,7 @@ function PageCreator(pageNames, fieldRealNames) {
 		var prevButton, startOverButton;
 		var htmlPage;
 
+		PageCreator.clearFields();
 		self.initValues();
 		window.localStorage.clear();
 		self.sessionID = newSession("items");
@@ -228,6 +229,11 @@ function PageCreator(pageNames, fieldRealNames) {
 
 	self.init();
 }
+
+PageCreator.clearFields = function() {
+	$(".form-control").val("");
+}
+
 
 PageCreator.consignmentFieldName = "Consignment";
 PageCreator.vendorFieldName = "Vendor";

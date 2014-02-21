@@ -156,7 +156,9 @@ function exportJson(sessionId) {
       var pair = xs[j];
       var key = pair[0];
       var value = pair[1];
-      g[key] = value;
+      if (value != "") {
+        g[key] = value;
+      }
     }
     r[i] = g;
   }
