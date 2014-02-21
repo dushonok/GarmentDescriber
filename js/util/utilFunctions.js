@@ -12,3 +12,12 @@ UtilFunctions.arrayToHash = function(array, hash) {
 		hash[UtilFunctions.removeSpaces(array[i])] = array[i];
 	};
 };
+
+UtilFunctions.isEmpty = function(map) {
+   for(var key in map) {
+      if (map.hasOwnProperty(key)) {
+         return false;
+      }
+   }
+   return true;
+}

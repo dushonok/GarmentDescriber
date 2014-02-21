@@ -9,6 +9,7 @@ function PageCreator(pageNames, fieldRealNames) {
 	this.totalNumberOfPage = this.pageNameOrderedHash.length();
 	
 	this.pageNameTemplate = "page";
+	this.inputNameTemplate = "input";
 	this.onConsingment = false;
 	RowHandler.pageHandler = self;
 
@@ -30,15 +31,12 @@ function PageCreator(pageNames, fieldRealNames) {
 			var key = self.getFieldNameByNumber(i);
 			var value = self.pageNameOrderedHash.value(key);
 			items = {
+				pageHandler: self,
 				currentPage: i+1,
 				totalNumberOfPage: self.totalNumberOfPage,
 				title: key,
 				items: value,
-				takeInputValue: key === PageCreator.descriptionFieldName || 
-								key === PageCreator.priceFieldName ||
-								key === PageCreator.msrpFieldName ||
-								key === PageCreator.defaultCostFieldName ||
-								key === PageCreator.quantityFieldName,
+				takeInputValue: UtilFunctions.isEmpty(value),
 				addToExisting: key === PageCreator.tagsFieldName
 			};
 			
@@ -174,8 +172,13 @@ function PageCreator(pageNames, fieldRealNames) {
 	},
 
 	this.setCurrentID = function(id) {
-		console.debug("setCurrentID, id = ", id);
-		self.id = id;
+		console.debug("setCurrentID, new id = ", id);
+		if (self.getFieldNameByNumber(self.pageNumber-1) === PageCreator.tagsFieldName) {
+			self.id += id;	
+			console.debug("setCurrentID, final id = ", id);
+		} else {
+			self.id = id;	
+		}
 	},
 
 	this.getFieldNameByNumber = function(fieldNumber) {
@@ -229,6 +232,10 @@ function PageCreator(pageNames, fieldRealNames) {
 		}
 		
 	},
+
+	this.getCurrentInputName = function() {
+		return self.inputNameTemplate + self.pageNumber;
+	}
 
 	self.init();
 }

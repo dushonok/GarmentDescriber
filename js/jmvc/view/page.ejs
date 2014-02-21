@@ -3,7 +3,7 @@
 	<h3><%= title %></h3>
 
 	<% var clickedKey, clickedValue; %>
-	<% var inputName = "input" + currentPage; %>
+	<% var inputName = pageHandler.getCurrentInputName(); %>
 
 	<form name=myText>
 		<label for="exampleInputPassword1">Value to store:</label>
@@ -17,7 +17,7 @@
 		<button type="button" accesskey=">"  \ 
 			class="btn btn-primary btn-small" \ 
 			id="nextButton" <%if (currentPage === totalNumberOfPage) { %> disabled <% } %> \ 
-			onclick="RowHandler.saveValueAndGoToNext('<%= inputName %>', <%= takeInputValue%>)" 
+			onclick="RowHandler.saveValueAndGoToNext(<%= takeInputValue%>)" 
 			>
 		    Next Field >
 		</button>
@@ -25,7 +25,7 @@
 		<%if (currentPage === totalNumberOfPage) { %>
 			&nbsp;
 			<button type="button" accesskey=">"  class="btn btn-danger" id="saveAndRestartButton" \
-				onclick="RowHandler.saveAndRestart('<%= inputName %>', <%= takeInputValue%>)" 
+				onclick="RowHandler.saveAndRestart(<%= takeInputValue%>)" 
 				>
 		    Save Item & Start Over
 		</button>
@@ -45,7 +45,7 @@
 		<% var value = items[key];  %>
 		<button type="button" id="button<%= i %>" class="btn btn-default" \ 
 	    		value="<%= value%>" \
-	    		onclick="RowHandler.setValue('<%= inputName %>','<%= key%>', '<%= value%>', <%= addToExisting%>)">
+	    		onclick="RowHandler.setValue('<%= key%>', '<%= value%>', <%= addToExisting%>)">
 	        <%= i+1 %>. <%= value %>
 	    </button>
 	    <% if (i%numberInRow === 0 && i != 0) {%>

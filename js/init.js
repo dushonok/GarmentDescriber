@@ -60,18 +60,20 @@
 		fieldRealNames[PageCreator.msrpFieldName] = "Msrp";
 		
 
+		orderedPages.push("Category", categories);
+
 		orderedPages.push(vintageNewName, {
 			"2":"vintage", 
 			"": "new"
 		});
+
 
 		orderedPages.push(PageCreator.consignmentFieldName, {
 			0: "no",
 			1: "yes"
 		});
 
-		orderedPages.push("Category", categories);
-
+		
 		orderedPages.push(PageCreator.vendorFieldName, vendors);
 		orderedPages.push(PageCreator.consignorFieldName, consignors);
 

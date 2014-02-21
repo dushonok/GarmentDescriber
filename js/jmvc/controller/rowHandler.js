@@ -3,29 +3,31 @@ function RowHandler() {}
 var clickedValue;
 
 
-RowHandler.setValue = function(inputName, value, valueToShow, addToExisting) {
+RowHandler.setValue = function(value, valueToShow, addToExisting) {
 	clickedValue = value;
 	if (addToExisting) {
-		var fieldValue = document.getElementById(inputName).value;
-		document.getElementById(inputName).value += fieldValue !== "" ? ", " : "";
-		document.getElementById(inputName).value += valueToShow;
+		var fieldValue = document.getElementById(RowHandler.pageHandler.getCurrentInputName()).value;
+		document.getElementById(RowHandler.pageHandler.getCurrentInputName()).value += fieldValue !== "" ? ", " : "";
+		document.getElementById(RowHandler.pageHandler.getCurrentInputName()).value += valueToShow;
 	} else {
-		document.getElementById(inputName).value = valueToShow;
+		document.getElementById(RowHandler.pageHandler.getCurrentInputName()).value = valueToShow;
 	}
 }
 
-RowHandler.saveValue = function(inputName, takeInputValue) {
-	var realValue = takeInputValue ? document.getElementById(inputName).value : clickedValue;
+RowHandler.saveValue = function(takeInputValue) {
+	var realValue = takeInputValue ? 
+		document.getElementById(RowHandler.pageHandler.getCurrentInputName()).value : 
+		clickedValue;
 	RowHandler.pageHandler.setCurrentID(realValue);
 	clickedValue = "";
 }
 
-RowHandler.saveValueAndGoToNext = function(inputName, takeInputValue) {
-	RowHandler.saveValue(inputName, takeInputValue);
+RowHandler.saveValueAndGoToNext = function(takeInputValue) {
+	RowHandler.saveValue(takeInputValue);
 	RowHandler.pageHandler.goToNextPage();
 }
 
-RowHandler.saveAndRestart = function(inputName, takeInputValue) {
-	RowHandler.saveValue(inputName, takeInputValue);
+RowHandler.saveAndRestart = function(takeInputValue) {
+	RowHandler.saveValue(takeInputValue);
 	RowHandler.pageHandler.saveAndRestart();
 }
