@@ -57,18 +57,35 @@ function registerShortcuts(shortcuts) {
     "UP",
     "DOWN"
   ];
+  
   var ctrl_active  = false;
   var shift_active = false;
   var alt_active   = false;
+  
+  var div_parent = $("<div style=\"position: fixed; bottom: 3; right: 3;\"></div>");
+  var ctrl_div = $("<span style=\"border: 1px solid black; border-radius: 15px; padding: 2px; margin: 1px;\">CTRL</span>");
+  var shift_div = $("<span style=\"border: 1px solid black; border-radius: 15px; padding: 2px; margin: 1px;\">SHIFT</span>");
+  var alt_div = $("<span style=\"border: 1px solid black; border-radius: 15px; padding: 2px; margin: 1px;\">ALT</span>");
+  
+  div_parent.append(ctrl_div);
+  div_parent.append(shift_div);
+  div_parent.append(alt_div);
+  
+  ctrl_div.hide();
+  shift_div.hide();
+  alt_div.hide();
+  
+  $("body").append(div_parent);
+  
   $(document).keydown(function(e) {
-    if (mod_mapping[e.which] == "CTRL")  ctrl_active  = true;
-    if (mod_mapping[e.which] == "SHIFT") shift_active = true;
-    if (mod_mapping[e.which] == "ALT")   alt_active   = true;
+    if (mod_mapping[e.which] == "CTRL")  {ctrl_active  = true; ctrl_div.show();}
+    if (mod_mapping[e.which] == "SHIFT") {shift_active = true; shift_div.show();}
+    if (mod_mapping[e.which] == "ALT")   {alt_active   = true; alt_div.show();}
   });
   $(document).keyup(function(e) {
-    if (mod_mapping[e.which] == "CTRL")  ctrl_active  = false;
-    if (mod_mapping[e.which] == "SHIFT") shift_active = false;
-    if (mod_mapping[e.which] == "ALT")   alt_active   = false;
+    if (mod_mapping[e.which] == "CTRL")  {ctrl_active  = false; ctrl_div.hide();}
+    if (mod_mapping[e.which] == "SHIFT") {shift_active = false; shift_div.hide();}
+    if (mod_mapping[e.which] == "ALT")   {alt_active   = false; alt_div.hide();}
     var x = key_mapping[e.which];
     if (x) {
       if (
