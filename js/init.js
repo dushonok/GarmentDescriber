@@ -130,6 +130,11 @@
 		});
 		
 		registerShortcuts({
+			"SPACE": function() {
+				// focus the text field
+				var inputName = RowHandler.pageHandler.getCurrentInputName();
+				$("#"+inputName).focus();
+			},
 			"LEFT": function() {
 				RowHandler.goToPrev();
 			},
