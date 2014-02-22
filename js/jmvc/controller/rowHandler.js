@@ -19,9 +19,11 @@ RowHandler.setValue = function(value, valueToShow, addToExisting) {
 RowHandler.saveValue = function() {
 	var inputName = RowHandler.pageHandler.getCurrentInputName();
 	var isTakeInputValue = RowHandler.pageHandler.isCurrentTakeInputValue();
-	var realValue = isTakeInputValue ? 
-		document.getElementById(inputName).value : 
-		clickedValue;
+	var inputValue = document.getElementById(inputName).value;
+	var realValue = isTakeInputValue ? inputValue : clickedValue;
+	if (RowHandler.pageHandler.isConsignorPage()) {
+		realValue = UtilFunctions.removeSpaces(inputValue);
+	}
 	RowHandler.pageHandler.setCurrentFieldValue(realValue);
 	clickedValue = "";
 }
