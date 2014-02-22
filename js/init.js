@@ -118,6 +118,30 @@
 			console.log("submit");
 			e.preventDefault();
 		});
+		
+		registerShortcuts({
+			"SHIFT+A": function() {
+				console.log("SHIFT+A was pressed.");
+			},
+			"CTRL+SHIFT+B": function() {
+				console.log("CTRL+SHIFT+B was pressed.");
+			},
+			"C": function() {
+				console.log("C was pressed.");
+			},
+			"UP": function() {
+				console.log("up arrow was pressed.");
+			},
+			"ESC": function() {
+				console.log("escape was pressed.");
+			},
+			"ENTER": function() {
+				console.log("the enter key was pressed.");
+			},
+			"SPACE": function() {
+				console.log("the spacebar was pressed.");
+			}
+		});
 	};
 	console.debug("promises = ", promises);
 	Q.all(promises).then(callback);
