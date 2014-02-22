@@ -51,6 +51,12 @@ function registerShortcuts(shortcuts) {
     56: "8",
     57: "9"
   };
+  var still_valid_in_input_field = [
+    "ENTER",
+    "ESC",
+    "UP",
+    "DOWN"
+  ];
   var ctrl_active  = false;
   var shift_active = false;
   var alt_active   = false;
@@ -64,6 +70,16 @@ function registerShortcuts(shortcuts) {
     if (mod_mapping[e.which] == "SHIFT") shift_active = false;
     if (mod_mapping[e.which] == "ALT")   alt_active   = false;
     if (key_mapping[e.which]) {
+      if (
+        $(document.activeElement).prop("tagName") == "INPUT" &&
+        !ctrl_active &&
+        !alt_active &&
+        !still_valid_in_input_field[e.which]
+      ) {
+        // skip keypresses performed while typing in an input field
+        return;
+      }
+      
       var key_combination = "";
       if (ctrl_active)  key_combination += "CTRL+";
       if (shift_active) key_combination += "SHIFT+";
