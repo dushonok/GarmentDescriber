@@ -45,11 +45,11 @@ function PageCreator(pageNames, fieldRealNames) {
 			if (i != 0) {
 				$(self.getPage(i+1)).hide();
 			}
-                        
-            // don't refresh the page when Enter is pressed
-            $("form").submit(function(e) {
-            	e.preventDefault();
-            });
+			
+			// don't refresh the page when Enter is pressed
+			$("form").submit(function(e) {
+				e.preventDefault();
+			});
 		};
 
 
@@ -176,8 +176,8 @@ function PageCreator(pageNames, fieldRealNames) {
 	this.getRealFieldName = function(name) {
 		Object.keys(self.fieldRealNames).forEach(function (key) { 
 			if (name === key) {
-		    	name = self.fieldRealNames[key];
-		    }
+				name = self.fieldRealNames[key];
+			}
 		});
 		return name;
 	}
