@@ -33,6 +33,15 @@
 					consignors = values;
 				} else if (fieldKey === "Category") {
 					categories = values;
+					for(var key in categories)
+				    {
+				    	var value = categories[key];
+				    	var re = /\//;
+				    	if (value.match(re) == null) {
+				    		delete categories[key];
+				    	}
+				    }
+				    //categories.sort();
 				} else if (fieldKey === "Manufacturer") {
 					manufacturers = values;
 				}
@@ -108,6 +117,8 @@
 		var tagsHash = {};
 		UtilFunctions.arrayToHash(tags, tagsHash);
 		orderedPages.push(PageCreator.tagsFieldName, tagsHash);
+
+		orderedPages.push("Notes", {});
 
 		console.debug("all done, orderedPages = ", orderedPages);
 
