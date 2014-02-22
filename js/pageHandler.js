@@ -205,8 +205,10 @@ function PageCreator(pageNames, fieldRealNames) {
 		var displayName = self.getFieldNameByNumber(self.pageNumber-1);
 		var name = self.getRealFieldName(displayName);
 
-		self.row[displayName] = self.id;
-
+		var inputName = self.getCurrentInputName();
+		self.row[UtilFunctions.removeSpaces(displayName)] = 
+								document.getElementById(inputName).value;
+		
 		if (name === PageCreator.consignmentFieldName) {
 			self.onConsingment = self.id === "1";
 		} else {
@@ -245,7 +247,8 @@ function PageCreator(pageNames, fieldRealNames) {
 				if (result.httpCode == undefined) {
 					self.initValues();
 					// go to 1st page
-					self.goToPage(self.firstPageNumber);				
+					self.goToPage(self.firstPageNumber);
+					self.row = {};			
 					self.row = {
 						garmentID: newGarment(self.sessionID)
 					};
@@ -268,8 +271,82 @@ function PageCreator(pageNames, fieldRealNames) {
 
 	this.getFullDesc = function() {
 		var txt = "Description of the item: ";
+
+		var value = self.row[PageCreator.categoryFieldName];
+		if (value != undefined) {
+			txt += value;
+		}
+
+		value = self.row[UtilFunctions.removeSpaces(PageCreator.vintageNewFieldName)];
+		if (value != undefined) {
+			txt += ", ";
+			txt += value + " item";
+		}
+
+		value = self.row[UtilFunctions.removeSpaces(PageCreator.consignmentFieldName)];
+		if (value != undefined) {
+			txt += value === "yes" ? ", on consignment" : "";
+		}
+
+		value = self.row[UtilFunctions.removeSpaces(PageCreator.consignorFieldName)];
+		if (value != undefined) {
+			txt += " from ";
+			txt += value;
+		}
+
+		value = self.row[UtilFunctions.removeSpaces(PageCreator.vendorFieldName)];
+		if (value != undefined) {
+			txt += " by ";
+			txt += value;
+		}
+
+
+		value = self.row[UtilFunctions.removeSpaces(PageCreator.descriptionFieldName)];
+		if (value != undefined) {
+			txt += ", description in Fre: '";
+			txt += value + "'";
+		}
+
+		value = self.row[UtilFunctions.removeSpaces(PageCreator.sizeFieldName)];
+		if (value != undefined) {
+			txt += ", ";
+			txt += value;
+		}
+
+		value = self.row[UtilFunctions.removeSpaces(PageCreator.priceFieldName)];
+		if (value != undefined) {
+			txt += ", price $";
+			txt += value;
+		}
+
+
+		value = self.row[UtilFunctions.removeSpaces(PageCreator.defaultCostFieldName)];
+		if (value != undefined) {
+			txt += ", default cost $";
+			txt += value;
+		}
+
+
+		value = self.row[UtilFunctions.removeSpaces(PageCreator.quantityFieldName)];
+		if (value != undefined) {
+			txt += ", quantity: ";
+			txt += value;
+		}
+
+
+		value = self.row[UtilFunctions.removeSpaces(PageCreator.tagsFieldName)];
+		if (value != undefined) {
+			txt += ", tags: '";
+			txt += value + "'";
+		}
+
+		value = self.row[UtilFunctions.removeSpaces(PageCreator.notesFieldName)];
+		if (value != undefined) {
+			txt += ", notes: '";
+			txt += value + "'";
+		}
 		//txt += getField(self.sessionID, self.row.garmentID, );
-		$("#fullDesc").html(txt);
+		$("h5#fullDesc").html(txt);
 	},
 
 	self.init();
@@ -293,4 +370,5 @@ PageCreator.defaultCostFieldName = "Default Cost";
 PageCreator.quantityFieldName = "Quantity";
 PageCreator.categoryFieldName = "Category";
 PageCreator.vintageNewFieldName = "Vintage / New";
-PageCreator.sizeNewFieldName = "Size";
+PageCreator.sizeFieldName = "Size";
+PageCreator.notesFieldName = "Notes";

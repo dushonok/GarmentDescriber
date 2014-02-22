@@ -96,7 +96,7 @@
 
 		var sizesHash = {};
 		UtilFunctions.arrayToHash(sizes, sizesHash);
-		orderedPages.push(PageCreator.sizeNewFieldName, sizesHash);	
+		orderedPages.push(PageCreator.sizeFieldName, sizesHash);	
 
 		orderedPages.push(PageCreator.priceFieldName, {});
 		//orderedPages.push(PageCreator.msrpFieldName, {});
@@ -115,7 +115,7 @@
 		UtilFunctions.arrayToHash(tags, tagsHash);
 		orderedPages.push(PageCreator.tagsFieldName, tagsHash);
 
-		orderedPages.push("Notes", {});
+		orderedPages.push(PageCreator.notesFieldName, {});
 
 		console.debug("all done, orderedPages = ", orderedPages);
 

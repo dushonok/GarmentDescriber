@@ -4,6 +4,8 @@ var UtilFunctions = function(){}
 UtilFunctions.removeSpaces = function(str) {
 	var pattern = /\s/g;
 	var res = str.replace(pattern, "-");
+	pattern = /\//g;
+	res = res.replace(pattern, "");
 	return res;
 };
 
