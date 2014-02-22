@@ -29,8 +29,22 @@
 				//console.debug("success, values = ", values);
 				if (fieldKey === "Vendor") {
 					vendors = values;
+					for(var key in vendors)
+				    {
+				    	var value = vendors[key];
+				    	if (value === "Dot ") {
+				    		vendors[key] = "Dot And Lil";
+				    	}
+				    }
 				} else if (fieldKey === "Consignors") {
 					consignors = values;
+					for(var key in consignors)
+				    {
+				    	var value = consignors[key];
+				    	if (value === "Dot ") {
+				    		consignors[key] = "Dot And Lil";
+				    	}
+				    }
 				} else if (fieldKey === "Category") {
 					categories = values;
 					for(var key in categories)
@@ -133,11 +147,12 @@
 		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.descriptionFieldName)] = 
 			"Type in the description in FRENCH - en francais SVP";
 		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.sizeFieldName)] = 
-			"Choose the size. If the buttons do not have your size, type it in";
+			"Choose the size. If the buttons do not have your size, type it in. \
+			If not size, skip it";
 		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.priceFieldName)] = 
-			"Provide the price";
+			"Provide the price. Do not put $ sign";
 		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.defaultCostFieldName)] = 
-			"Provide the default cost";
+			"Provide the default cost. Do not put $ sign";
 		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.quantityFieldName)] = 
 			"Provide the amount (quantity) of the items in the pile";
 		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.tagsFieldName)] = 
@@ -145,7 +160,7 @@
 				If the buttons do not have your tag, type it in without spaces. \
 				Tags are separated by comma";
 		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.notesFieldName)] = 
-			"Add notes if any";
+			"Add a note if needed";
 		
 
 		var pageCreator = new PageCreator(orderedPages, fieldRealNames);

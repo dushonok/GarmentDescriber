@@ -9,7 +9,9 @@ RowHandler.setValue = function(value, valueToShow, addToExisting) {
 	
 	if (addToExisting) {
 		var fieldValue = document.getElementById(inputName).value;
-		document.getElementById(inputName).value += fieldValue !== "" ? ", " : "";
+		if (fieldValue !== "" && fieldValue !== undefined) {
+			document.getElementById(inputName).value += ", ";
+		}
 		document.getElementById(inputName).value += valueToShow;
 	} else {
 		document.getElementById(inputName).value = valueToShow;

@@ -229,8 +229,8 @@ function PageCreator(pageNames, fieldRealNames) {
 			if (name === PageCreator.tagsFieldName) {
 				var prevVal = getField(self.sessionID, self.row.garmentID, name);
 				
-				if (prevVal != undefined) {
-					self.id += ", ";
+				if (prevVal != undefined && prevVal != "") {
+					self.id += self.id === "" ? "" : ", ";
 					self.id += prevVal;
 				}
 			} else if (name === PageCreator.manufacturerFieldName ) {
@@ -253,6 +253,7 @@ function PageCreator(pageNames, fieldRealNames) {
 	},
 
 	this.saveAndRestart = function() {
+		self.saveFields();
 		if (self.row.garmentID >= 0) {
 			//save
 			console.debug("save now");
@@ -261,8 +262,9 @@ function PageCreator(pageNames, fieldRealNames) {
 				if (result.httpCode == undefined) {
 					self.initValues();
 					// go to 1st page
-					self.goToPage(self.firstPageNumber);
 					self.row = {};			
+					self.goToPage(self.firstPageNumber);
+					self.getFullDesc();
 					self.row = {
 						garmentID: newGarment(self.sessionID)
 					};
@@ -322,7 +324,7 @@ function PageCreator(pageNames, fieldRealNames) {
 		}
 
 		value = self.row[UtilFunctions.removeSpaces(PageCreator.sizeFieldName)];
-		if (value != undefined) {
+		if (value != undefined && value !== "") {
 			txt += ", ";
 			txt += value;
 		}
@@ -385,6 +387,6 @@ PageCreator.quantityFieldName = "Quantity";
 PageCreator.categoryFieldName = "Category";
 PageCreator.vintageNewFieldName = "Vintage / New";
 PageCreator.sizeFieldName = "Size";
-PageCreator.notesFieldName = "Notes";
+PageCreator.notesFieldName = "Note";
 
 PageCreator.hints = {}
