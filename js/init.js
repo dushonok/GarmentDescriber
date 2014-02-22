@@ -119,6 +119,35 @@
 
 		console.debug("all done, orderedPages = ", orderedPages);
 
+		// hints
+		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.vintageNewFieldName)] = 
+			"Select whether the item is new or vintage";
+		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.categoryFieldName)] = 
+			"Choose the category of the item";
+		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.consignmentFieldName)] = 
+			"Is this item on consigment?";
+		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.vendorFieldName)] = 
+			"What is the vendor brand";
+		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.consignorFieldName)] = 
+			"Who is the consignor?";
+		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.descriptionFieldName)] = 
+			"Type in the description in FRENCH - en francais SVP";
+		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.sizeFieldName)] = 
+			"Choose the size. If the buttons do not have your size, type it in";
+		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.priceFieldName)] = 
+			"Provide the price";
+		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.defaultCostFieldName)] = 
+			"Provide the default cost";
+		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.quantityFieldName)] = 
+			"Provide the amount (quantity) of the items in the pile";
+		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.tagsFieldName)] = 
+			"Choose the tags. You can choose more than one. \
+				If the buttons do not have your tag, type it in without spaces. \
+				Tags are separated by comma";
+		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.notesFieldName)] = 
+			"Add notes if any";
+		
+
 		var pageCreator = new PageCreator(orderedPages, fieldRealNames);
 		
 		// don't refresh the page when Enter is pressed

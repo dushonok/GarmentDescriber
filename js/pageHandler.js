@@ -37,7 +37,8 @@ function PageCreator(pageNames, fieldRealNames) {
 				totalNumberOfPage: self.totalNumberOfPage,
 				title: key,
 				items: value,
-				addToExisting: key === PageCreator.tagsFieldName
+				addToExisting: key === PageCreator.tagsFieldName,
+				hint: PageCreator.hints[UtilFunctions.removeSpaces(key)]
 			};
 			
 			htmlPage = new EJS({url: 'js/jmvc/view/page.ejs'}).render(items);
@@ -346,7 +347,7 @@ function PageCreator(pageNames, fieldRealNames) {
 			txt += value + "'";
 		}
 		//txt += getField(self.sessionID, self.row.garmentID, );
-		$("h5#fullDesc").html(txt);
+		$("p#fullDesc").html(txt);
 	},
 
 	self.init();
@@ -372,3 +373,5 @@ PageCreator.categoryFieldName = "Category";
 PageCreator.vintageNewFieldName = "Vintage / New";
 PageCreator.sizeFieldName = "Size";
 PageCreator.notesFieldName = "Notes";
+
+PageCreator.hints = {}

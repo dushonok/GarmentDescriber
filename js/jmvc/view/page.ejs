@@ -1,10 +1,11 @@
 <div id="page<%= currentPage %>">
-	<h5 id="fullDesc">Description of the item</h5>
-	<div>Page <%= currentPage %> out of <%= totalNumberOfPage %></div>
-	<h3><%= title %></h3>
+	<div >Page <%= currentPage %> out of <%= totalNumberOfPage %></div>
+	<br>
+	<p id="fullDesc" class="bg-success">Description of the item</p>
+	<h4>&nbsp;<%= title %></h4>
 
 	<form name=myText>
-		<label for="exampleInputPassword1">Value to store:</label>
+		<label>&nbsp;<%= hint%></label>
 		<input class="form-control"id="input<%= currentPage %>" name="valueToStore" value="">
 
 		<button type="button" accesskey=">"  class="btn btn-info btn-small" \ 
