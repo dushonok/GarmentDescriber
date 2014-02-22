@@ -62,7 +62,7 @@
 		var sizeName = "Size";
 
 		// real field names
-		fieldRealNames[vintageNewName] = "Manufacturer";
+		fieldRealNames[vintageNewName] = PageCreator.manufacturerFieldName;
 		fieldRealNames[PageCreator.consignorFieldName] = PageCreator.tagsFieldName;
 		fieldRealNames[sizeName] = PageCreator.tagsFieldName;
 		fieldRealNames[PageCreator.defaultCostFieldName] = "DefaultCost";
@@ -102,7 +102,7 @@
 		orderedPages.push(sizeName, sizesHash);	
 
 		orderedPages.push(PageCreator.priceFieldName, {});
-		orderedPages.push(PageCreator.msrpFieldName, {});
+		//orderedPages.push(PageCreator.msrpFieldName, {});
 		orderedPages.push(PageCreator.defaultCostFieldName, {});
 		orderedPages.push(PageCreator.quantityFieldName, {});
 

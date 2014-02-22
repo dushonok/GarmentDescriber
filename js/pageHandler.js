@@ -11,6 +11,7 @@ function PageCreator(pageNames, fieldRealNames) {
 	this.pageNameTemplate = "page";
 	this.inputNameTemplate = "input";
 	this.onConsingment = false;
+	this.isVintage = false;
 	RowHandler.pageHandler = self;
 
 	this.row = {
@@ -57,6 +58,7 @@ function PageCreator(pageNames, fieldRealNames) {
 
 	this.initValues = function() {
 		self.onConsingment = false;	
+		this.isVintage = false;
 		PageCreator.clearFields();
 	},
 
@@ -67,6 +69,12 @@ function PageCreator(pageNames, fieldRealNames) {
 	this.isConsignorPage = function() {
 		return self.getFieldNameByNumber(self.pageNumber-1) === PageCreator.consignorFieldName;
 	},
+
+	this.isTagsPage = function() {
+		return self.getFieldNameByNumber(self.pageNumber-1) === PageCreator.tagsFieldName;
+	},
+
+	
 
 	this.firstPageNumber = function() {
 		var end = true;
@@ -82,11 +90,18 @@ function PageCreator(pageNames, fieldRealNames) {
 	this.nextPageNumber = function() {
 		var end = false;
 		++self.pageNumber;
-		if (self.onConsingment && self.isVendorPage() ) {
-			++self.pageNumber;
-		} else if (!self.onConsingment && self.isConsignorPage() ) {
+
+		if (self.isVintage && self.isVendorPage() ) {
 			++self.pageNumber;
 		}
+
+		if ( self.onConsingment && self.isVendorPage() ) {
+			++self.pageNumber;
+		}
+		if (!self.onConsingment && self.isConsignorPage() ) {
+			++self.pageNumber;
+		}
+
 		if (self.pageNumber > self.totalNumberOfPage) {
 			self.pageNumber = self.totalNumberOfPage;
 			end = true;
@@ -102,12 +117,19 @@ function PageCreator(pageNames, fieldRealNames) {
 		var begin = false;
 		--self.pageNumber;
 		
-		if (self.onConsingment && self.isVendorPage() ) {
-			--self.pageNumber;
-		} else if (!self.onConsingment && self.isConsignorPage() ) {
+		if (!self.onConsingment && self.isConsignorPage() ) {
 			--self.pageNumber;
 		}
 
+		if (self.isVintage && self.isVendorPage() ) {
+			--self.pageNumber;
+		}
+
+		if (self.onConsingment && self.isVendorPage() ) {
+			--self.pageNumber;
+		} 
+
+		
 		if (self.pageNumber < 1) {
 			self.pageNumber = 1;
 			begin = true;
@@ -178,28 +200,31 @@ function PageCreator(pageNames, fieldRealNames) {
 	}
 
 	this.saveFields = function() {
-		if (self.id !== "") {
-			var displayName = self.getFieldNameByNumber(self.pageNumber-1);
-			var name = self.getRealFieldName(displayName);
+	
+		var displayName = self.getFieldNameByNumber(self.pageNumber-1);
+		var name = self.getRealFieldName(displayName);
 
-			if (name === PageCreator.consignmentFieldName) {
-				self.onConsingment = self.id === "1";
-			} else {
-				self.row[name] = self.id;
+		if (name === PageCreator.consignmentFieldName) {
+			self.onConsingment = self.id === "1";
+		} else {
+			self.row[name] = self.id;
+			
+			if (name === PageCreator.tagsFieldName) {
+				var prevVal = getField(self.sessionID, self.row.garmentID, name);
 				
-				if (name === PageCreator.tagsFieldName) {
-					var prevVal = getField(self.sessionID, self.row.garmentID, name);
-					
-					if (prevVal != undefined) {
-						self.id += ", ";
-						self.id += prevVal;
-					}
+				if (prevVal != undefined) {
+					self.id += ", ";
+					self.id += prevVal;
 				}
-				console.debug("Save field: display name = ", displayName, ", real name = ", name, ", value = ", self.id);
-				
-				saveField(self.sessionID, self.row.garmentID, name, self.id);
-				self.id = "";
+			} else if (name === PageCreator.manufacturerFieldName ) {
+				self.isVintage = self.id != "";
 			}
+			console.debug("Save field: display name = ", displayName, ", real name = ", name, ", value = ", self.id);
+			
+			if (self.id !== "") {
+				saveField(self.sessionID, self.row.garmentID, name, self.id);
+			}
+			self.id = "";
 		}
 	},
 
@@ -237,7 +262,7 @@ function PageCreator(pageNames, fieldRealNames) {
 	this.isCurrentTakeInputValue = function() {
 		var key = self.getFieldNameByNumber(self.pageNumber-1);
 		var value = self.pageNameOrderedHash.value(key);
-		return UtilFunctions.isEmpty(value);
+		return UtilFunctions.isEmpty(value) || self.isTagsPage();
 	},
 
 	self.init();
@@ -248,6 +273,7 @@ PageCreator.clearFields = function() {
 }
 
 
+PageCreator.manufacturerFieldName = "Manufacturer";
 PageCreator.consignmentFieldName = "Consignment";
 PageCreator.vendorFieldName = "Vendor";
 PageCreator.consignorFieldName = "Consignor";
