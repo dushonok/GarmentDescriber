@@ -386,8 +386,5 @@ PageCreator.categoryFieldName = "Category";
 PageCreator.vintageNewFieldName = "Vintage / New";
 PageCreator.sizeFieldName = "Size";
 PageCreator.notesFieldName = "Notes";
-<<<<<<< HEAD
 
 PageCreator.hints = {}
-=======
->>>>>>> 829fdeb1e7a8e5811d775bff6ad97f55799da6ea
