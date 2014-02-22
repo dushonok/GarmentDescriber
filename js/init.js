@@ -120,26 +120,14 @@
 		});
 		
 		registerShortcuts({
-			"SHIFT+A": function() {
-				console.log("SHIFT+A was pressed.");
+			"LEFT": function() {
+				RowHandler.goToPrev();
 			},
-			"CTRL+SHIFT+B": function() {
-				console.log("CTRL+SHIFT+B was pressed.");
-			},
-			"C": function() {
-				console.log("C was pressed.");
-			},
-			"UP": function() {
-				console.log("up arrow was pressed.");
-			},
-			"ESC": function() {
-				console.log("escape was pressed.");
+			"RIGHT": function() {
+				RowHandler.saveValueAndGoToNext();
 			},
 			"ENTER": function() {
-				console.log("the enter key was pressed.");
-			},
-			"SPACE": function() {
-				console.log("the spacebar was pressed.");
+				RowHandler.saveValueAndGoToNext();
 			}
 		});
 	};
