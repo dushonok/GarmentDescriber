@@ -28,6 +28,8 @@ RowHandler.saveValue = function() {
 	clickedValue = "";
 }
 
+// Navigation 
+
 RowHandler.saveValueAndGoToNext = function() {
 	RowHandler.saveValue();
 	RowHandler.pageHandler.goToNextPage();

@@ -58,20 +58,17 @@
 		var orderedPages = new OrderedHash();
 		var fieldRealNames = {};
 		
-		var vintageNewName = "Vintage / New";
-		var sizeName = "Size";
-
 		// real field names
-		fieldRealNames[vintageNewName] = PageCreator.manufacturerFieldName;
+		fieldRealNames[PageCreator.vintageNewFieldName] = PageCreator.manufacturerFieldName;
 		fieldRealNames[PageCreator.consignorFieldName] = PageCreator.tagsFieldName;
-		fieldRealNames[sizeName] = PageCreator.tagsFieldName;
+		fieldRealNames[PageCreator.sizeNewFieldName] = PageCreator.tagsFieldName;
 		fieldRealNames[PageCreator.defaultCostFieldName] = "DefaultCost";
 		fieldRealNames[PageCreator.msrpFieldName] = "Msrp";
 		
 
-		orderedPages.push("Category", categories);
+		orderedPages.push(PageCreator.categoryFieldName, categories);
 
-		orderedPages.push(vintageNewName, {
+		orderedPages.push(PageCreator.vintageNewFieldName, {
 			"2":"vintage", 
 			"": "new"
 		});
@@ -86,7 +83,7 @@
 		orderedPages.push(PageCreator.vendorFieldName, vendors);
 		orderedPages.push(PageCreator.consignorFieldName, consignors);
 
-		orderedPages.push("Description", {});
+		orderedPages.push(PageCreator.descriptionFieldName, {});
 
 		var sizes =
 			[	
@@ -99,7 +96,7 @@
 
 		var sizesHash = {};
 		UtilFunctions.arrayToHash(sizes, sizesHash);
-		orderedPages.push(sizeName, sizesHash);	
+		orderedPages.push(PageCreator.sizeNewFieldName, sizesHash);	
 
 		orderedPages.push(PageCreator.priceFieldName, {});
 		//orderedPages.push(PageCreator.msrpFieldName, {});

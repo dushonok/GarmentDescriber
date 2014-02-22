@@ -1,9 +1,7 @@
 <div id="page<%= currentPage %>">
-	<h5>Page <%= currentPage %> out of <%= totalNumberOfPage %></h5>
+	<h5 id="fullDesc">Description of the item</h5>
+	<div>Page <%= currentPage %> out of <%= totalNumberOfPage %></div>
 	<h3><%= title %></h3>
-
-	<% var clickedKey, clickedValue; %>
-	<% var inputName = pageHandler.getCurrentInputName(); %>
 
 	<form name=myText>
 		<label for="exampleInputPassword1">Value to store:</label>

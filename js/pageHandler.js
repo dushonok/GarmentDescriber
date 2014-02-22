@@ -175,6 +175,7 @@ function PageCreator(pageNames, fieldRealNames) {
 	this.goToNextPage = function() {
 		self.saveFields();
 		self.goToPage(self.nextPageNumber);
+		self.getFullDesc();
 	},
 
 	this.goToPrevPage = function() {
@@ -204,11 +205,11 @@ function PageCreator(pageNames, fieldRealNames) {
 		var displayName = self.getFieldNameByNumber(self.pageNumber-1);
 		var name = self.getRealFieldName(displayName);
 
+		self.row[displayName] = self.id;
+
 		if (name === PageCreator.consignmentFieldName) {
 			self.onConsingment = self.id === "1";
 		} else {
-			self.row[name] = self.id;
-			
 			if (name === PageCreator.tagsFieldName) {
 				var prevVal = getField(self.sessionID, self.row.garmentID, name);
 				
@@ -265,6 +266,12 @@ function PageCreator(pageNames, fieldRealNames) {
 		return UtilFunctions.isEmpty(value) || self.isTagsPage();
 	},
 
+	this.getFullDesc = function() {
+		var txt = "Description of the item: ";
+		//txt += getField(self.sessionID, self.row.garmentID, );
+		$("#fullDesc").html(txt);
+	},
+
 	self.init();
 }
 
@@ -284,3 +291,6 @@ PageCreator.priceFieldName = "Price";
 PageCreator.msrpFieldName = "MSRP";
 PageCreator.defaultCostFieldName = "Default Cost";
 PageCreator.quantityFieldName = "Quantity";
+PageCreator.categoryFieldName = "Category";
+PageCreator.vintageNewFieldName = "Vintage / New";
+PageCreator.sizeNewFieldName = "Size";
