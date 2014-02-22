@@ -126,7 +126,6 @@
 		
 		// don't refresh the page when Enter is pressed
 		$("form").submit(function(e) {
-			console.log("submit");
 			e.preventDefault();
 		});
 		

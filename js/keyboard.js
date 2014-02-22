@@ -69,12 +69,13 @@ function registerShortcuts(shortcuts) {
     if (mod_mapping[e.which] == "CTRL")  ctrl_active  = false;
     if (mod_mapping[e.which] == "SHIFT") shift_active = false;
     if (mod_mapping[e.which] == "ALT")   alt_active   = false;
-    if (key_mapping[e.which]) {
+    var x = key_mapping[e.which];
+    if (x) {
       if (
         $(document.activeElement).prop("tagName") == "INPUT" &&
         !ctrl_active &&
         !alt_active &&
-        !still_valid_in_input_field[e.which]
+        still_valid_in_input_field.indexOf(x) == -1
       ) {
         // skip keypresses performed while typing in an input field
         return;
