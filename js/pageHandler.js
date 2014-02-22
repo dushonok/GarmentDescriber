@@ -45,11 +45,6 @@ function PageCreator(pageNames, fieldRealNames) {
 			if (i != 0) {
 				$(self.getPage(i+1)).hide();
 			}
-			
-			// don't refresh the page when Enter is pressed
-			$("form").submit(function(e) {
-				e.preventDefault();
-			});
 		};
 
 
