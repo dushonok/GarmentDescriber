@@ -123,6 +123,24 @@
 		console.debug("all done, orderedPages = ", orderedPages);
 
 		var pageCreator = new PageCreator(orderedPages, fieldRealNames);
+		
+		// don't refresh the page when Enter is pressed
+		$("form").submit(function(e) {
+			console.log("submit");
+			e.preventDefault();
+		});
+		
+		registerShortcuts({
+			"LEFT": function() {
+				RowHandler.goToPrev();
+			},
+			"RIGHT": function() {
+				RowHandler.saveValueAndGoToNext();
+			},
+			"ENTER": function() {
+				RowHandler.saveValueAndGoToNext();
+			}
+		});
 	};
 	console.debug("promises = ", promises);
 	Q.all(promises).then(callback);
