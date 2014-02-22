@@ -166,13 +166,7 @@ function PageCreator(pageNames, fieldRealNames) {
 	},
 
 	this.setCurrentFieldValue = function(id) {
-		var displayFieldName = self.getFieldNameByNumber(self.pageNumber-1);
-		var realFieldName = self.getRealFieldName(displayFieldName);
-		if (realFieldName === PageCreator.tagsFieldName) {
-			self.id += id;
-		} else {
-			self.id = id;	
-		}
+		self.id = id;
 	},
 
 	this.getFieldNameByNumber = function(fieldNumber) {
@@ -190,15 +184,24 @@ function PageCreator(pageNames, fieldRealNames) {
 
 	this.saveFields = function() {
 		if (self.id !== "") {
-			var name = self.getFieldNameByNumber(self.pageNumber-1);
-			
-			name = self.getRealFieldName(name);
+			var displayName = self.getFieldNameByNumber(self.pageNumber-1);
+			var name = self.getRealFieldName(displayName);
 
 			if (name === PageCreator.consignmentFieldName) {
 				self.onConsingment = self.id === "1";
 			} else {
 				self.row[name] = self.id;
-				console.debug("Save field: name = ", name, ", value = ", self.id);
+				
+				if (name === PageCreator.tagsFieldName) {
+					var prevVal = getField(self.sessionID, self.row.garmentID, name);
+					
+					if (prevVal != undefined) {
+						self.id += ", ";
+						self.id += prevVal;
+					}
+				}
+				console.debug("Save field: display name = ", displayName, ", real name = ", name, ", value = ", self.id);
+				
 				saveField(self.sessionID, self.row.garmentID, name, self.id);
 				self.id = "";
 			}
