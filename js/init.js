@@ -147,8 +147,7 @@
 		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.descriptionFieldName)] = 
 			"Type in the description in FRENCH - en francais SVP";
 		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.sizeFieldName)] = 
-			"Choose the size. If the buttons do not have your size, type it in. \
-			If not size, skip it";
+			"Choose the size. If no size, skip it";
 		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.priceFieldName)] = 
 			"Provide the price. Do not put $ sign";
 		PageCreator.hints[UtilFunctions.removeSpaces(PageCreator.defaultCostFieldName)] = 
