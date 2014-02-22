@@ -126,7 +126,25 @@
 			e.preventDefault();
 		});
 		
+		var click_button = function(j) {
+			var i = RowHandler.pageHandler.pageNumber;
+			$("#page"+i+" #button"+(j-1)).click();
+		};
 		registerShortcuts({
+			"1": function() {click_button(1);},
+			"2": function() {click_button(2);},
+			"3": function() {click_button(3);},
+			"4": function() {click_button(4);},
+			"5": function() {click_button(5);},
+			"6": function() {click_button(6);},
+			"7": function() {click_button(7);},
+			"8": function() {click_button(8);},
+			"9": function() {click_button(9);},
+			"SPACE": function() {
+				// focus the text field
+				var inputName = RowHandler.pageHandler.getCurrentInputName();
+				$("#"+inputName).focus();
+			},
 			"LEFT": function() {
 				RowHandler.goToPrev();
 			},
