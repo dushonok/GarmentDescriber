@@ -57,9 +57,19 @@ function PageCreator(pageNames, fieldRealNames) {
 		
 	},
 
+	this.clickDigitButton = function(j) {
+		var i = RowHandler.pageHandler.pageNumber;
+		$("#page"+i+" #button"+(j-1)).click();
+	},
+	this.appendDigit = function(i) {
+		self.digits = self.digits * 10 + i;
+		self.clickDigitButton(self.digits);
+	},
+	
 	this.initValues = function() {
 		self.onConsingment = false;	
 		this.isVintage = false;
+		self.digits = 0;
 		PageCreator.clearFields();
 	},
 
@@ -168,6 +178,9 @@ function PageCreator(pageNames, fieldRealNames) {
 				existingDivs = self.getCurrentPage();
 				// show the next page	
 				$(existingDivs[0]).show();
+				
+				// clear page-local variables
+				self.digits = 0;
 			//}
 			
 		}
@@ -373,5 +386,8 @@ PageCreator.categoryFieldName = "Category";
 PageCreator.vintageNewFieldName = "Vintage / New";
 PageCreator.sizeFieldName = "Size";
 PageCreator.notesFieldName = "Notes";
+<<<<<<< HEAD
 
 PageCreator.hints = {}
+=======
+>>>>>>> 829fdeb1e7a8e5811d775bff6ad97f55799da6ea
