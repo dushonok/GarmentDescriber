@@ -92,6 +92,7 @@ function newGarment(sessionId) {
 
 // edit the field if it exists, or add it to the end of the row otherwise
 function saveField(sessionId, garmentId, key, value) {
+  if (value === undefined) return;
   console.assert(typeof sessionId === "string");
   console.assert(typeof garmentId === "number");
   console.assert(typeof key === "string");
