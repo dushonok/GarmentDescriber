@@ -9,6 +9,7 @@
 "Msrp" // manufacturer recommended retail price
 "Cost" aka "DefaultCost"
 "Quantity"
+"Note"
 
 "AvgCost"
 "Ean"// a standard SKU number.
