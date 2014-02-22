@@ -41,23 +41,15 @@ function PageCreator(pageNames, fieldRealNames) {
 			
 			htmlPage = new EJS({url: 'js/jmvc/view/page.ejs'}).render(items);
 			$("body").append(htmlPage);
-			//$("body").find("button#nextButton")[i].onclick = self.goToNextPage;
-			prevButton = $("body").find("button#prevButton")[i];
-			if (prevButton != null) {
-				prevButton.onclick = self.goToPrevPage;
-			}
-
-			startOverButton = $("body").find("button#saveAndRestartButton")[0];
-			if (startOverButton != null) {
-				startOverButton.onclick = self.saveAndRestart;
-			}
-
+			
 			if (i != 0) {
 				$(self.getPage(i+1)).hide();
 			}
                         
-                        // don't refresh the page when Enter is pressed
-                        $("form").submit(function(e) {e.preventDefault();});
+            // don't refresh the page when Enter is pressed
+            $("form").submit(function(e) {
+            	e.preventDefault();
+            });
 		};
 
 
@@ -173,11 +165,11 @@ function PageCreator(pageNames, fieldRealNames) {
 		self.loadFields();
 	},
 
-	this.setCurrentID = function(id) {
-		console.debug("setCurrentID, new id = ", id);
-		if (self.getFieldNameByNumber(self.pageNumber-1) === PageCreator.tagsFieldName) {
-			self.id += id;	
-			console.debug("setCurrentID, final id = ", id);
+	this.setCurrentFieldValue = function(id) {
+		var displayFieldName = self.getFieldNameByNumber(self.pageNumber-1);
+		var realFieldName = self.getRealFieldName(displayFieldName);
+		if (realFieldName === PageCreator.tagsFieldName) {
+			self.id += id;
 		} else {
 			self.id = id;	
 		}
@@ -185,23 +177,28 @@ function PageCreator(pageNames, fieldRealNames) {
 
 	this.getFieldNameByNumber = function(fieldNumber) {
 		return self.pageNameOrderedHash.keys()[fieldNumber];
+	},
+
+	this.getRealFieldName = function(name) {
+		Object.keys(self.fieldRealNames).forEach(function (key) { 
+			if (name === key) {
+		    	name = self.fieldRealNames[key];
+		    }
+		});
+		return name;
 	}
 
 	this.saveFields = function() {
 		if (self.id !== "") {
 			var name = self.getFieldNameByNumber(self.pageNumber-1);
-
-			Object.keys(self.fieldRealNames).forEach(function (key) { 
-				if (name === key) {
-			    	name = self.fieldRealNames[key];
-			    }
-			})
+			
+			name = self.getRealFieldName(name);
 
 			if (name === PageCreator.consignmentFieldName) {
 				self.onConsingment = self.id === "1";
-				console.debug("Item is on consingment: ", self.onConsingment);
 			} else {
 				self.row[name] = self.id;
+				console.debug("Save field: name = ", name, ", value = ", self.id);
 				saveField(self.sessionID, self.row.garmentID, name, self.id);
 				self.id = "";
 			}

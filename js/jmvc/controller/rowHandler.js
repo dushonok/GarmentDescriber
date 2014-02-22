@@ -22,13 +22,17 @@ RowHandler.saveValue = function() {
 	var realValue = isTakeInputValue ? 
 		document.getElementById(inputName).value : 
 		clickedValue;
-	RowHandler.pageHandler.setCurrentID(realValue);
+	RowHandler.pageHandler.setCurrentFieldValue(realValue);
 	clickedValue = "";
 }
 
 RowHandler.saveValueAndGoToNext = function() {
 	RowHandler.saveValue();
 	RowHandler.pageHandler.goToNextPage();
+}
+
+RowHandler.goToPrev = function() {
+	RowHandler.pageHandler.goToPrevPage();
 }
 
 RowHandler.saveAndRestart = function() {
