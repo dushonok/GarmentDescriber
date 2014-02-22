@@ -59,11 +59,17 @@ function PageCreator(pageNames, fieldRealNames) {
 
 	this.clickDigitButton = function(j) {
 		var i = RowHandler.pageHandler.pageNumber;
-		$("#page"+i+" #button"+(j-1)).click();
+		var buttons = $("#page"+i+" #button"+(j-1));
+		buttons.click();
+		return (buttons.size() > 0);
 	},
 	this.appendDigit = function(i) {
-		self.digits = self.digits * 10 + i;
-		self.clickDigitButton(self.digits);
+		var xs = self.digits * 10 + i;
+		if (self.clickDigitButton(xs)) {
+			self.digits = xs;
+		} else if (self.clickDigitButton(i)) {
+			self.digits = i;
+		}
 	},
 	
 	this.initValues = function() {
