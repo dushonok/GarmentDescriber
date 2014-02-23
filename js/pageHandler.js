@@ -336,7 +336,7 @@ function PageCreator(pageNames, fieldRealNames) {
 		value = self.row[UtilFunctions.removeSpaces(PageCreator.descriptionFieldName)];
 		if (value != undefined) {
 			txt += ", description in Fre: '";
-			txt += value + "'";
+			txt += getField(self.sessionID, self.row.garmentID, PageCreator.descriptionFieldName) + "'";
 		}
 
 		value = self.row[UtilFunctions.removeSpaces(PageCreator.sizeFieldName)];
@@ -369,7 +369,7 @@ function PageCreator(pageNames, fieldRealNames) {
 		value = self.row[UtilFunctions.removeSpaces(PageCreator.tagsFieldName)];
 		if (value != undefined) {
 			txt += ", tags: '";
-			txt += value + "'";
+                        txt += getField(self.sessionID, self.row.garmentID, PageCreator.tagsFieldName) + "'";
 		}
 
 		value = self.row[UtilFunctions.removeSpaces(PageCreator.notesFieldName)];
