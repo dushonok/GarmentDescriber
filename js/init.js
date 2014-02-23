@@ -110,13 +110,6 @@
 		UtilFunctions.arrayToHash(sizes, sizesHash);
 		orderedPages.push(PageCreator.sizeFieldName, sizesHash);	
 
-		orderedPages.push(PageCreator.descriptionFieldName, {});
-
-		orderedPages.push(PageCreator.priceFieldName, {});
-		//orderedPages.push(PageCreator.msrpFieldName, {});
-		//orderedPages.push(PageCreator.defaultCostFieldName, {});
-		orderedPages.push(PageCreator.quantityFieldName, {});
-
 		var tags = [
 				"men",
 				"basic",
@@ -128,6 +121,13 @@
 		var tagsHash = {};
 		UtilFunctions.arrayToHash(tags, tagsHash);
 		orderedPages.push(PageCreator.tagsFieldName, tagsHash);
+
+		orderedPages.push(PageCreator.descriptionFieldName, {});
+
+		orderedPages.push(PageCreator.priceFieldName, {});
+		//orderedPages.push(PageCreator.msrpFieldName, {});
+		//orderedPages.push(PageCreator.defaultCostFieldName, {});
+		orderedPages.push(PageCreator.quantityFieldName, {});
 
 		orderedPages.push(PageCreator.notesFieldName, {});
 
