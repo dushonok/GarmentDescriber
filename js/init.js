@@ -170,6 +170,7 @@
 		});
 		
 		registerShortcuts({
+			"P": function() {RowHandler.usePrevious();},
 			"0": function() {RowHandler.pageHandler.appendDigit(0);},
 			"1": function() {RowHandler.pageHandler.appendDigit(1);},
 			"2": function() {RowHandler.pageHandler.appendDigit(2);},
