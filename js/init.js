@@ -75,7 +75,7 @@
 		// real field names
 		fieldRealNames[PageCreator.vintageNewFieldName] = PageCreator.manufacturerFieldName;
 		fieldRealNames[PageCreator.consignorFieldName] = PageCreator.tagsFieldName;
-		fieldRealNames[PageCreator.sizeNewFieldName] = PageCreator.tagsFieldName;
+		fieldRealNames[PageCreator.sizeFieldName] = PageCreator.tagsFieldName;
 		fieldRealNames[PageCreator.defaultCostFieldName] = "DefaultCost";
 		fieldRealNames[PageCreator.msrpFieldName] = "Msrp";
 		
