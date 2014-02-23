@@ -241,6 +241,10 @@ function PageCreator(pageNames, fieldRealNames) {
 				}
 			} else if (name === PageCreator.manufacturerFieldName ) {
 				self.isVintage = self.id != "";
+			} else if (name === PageCreator.descriptionFieldName) {
+				if (self.isVintage) {
+					self.id += " Vintage";
+				}
 			}
 			console.debug("Save field: display name = ", displayName, ", real name = ", name, ", value = ", self.id);
 			
