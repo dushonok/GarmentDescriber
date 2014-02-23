@@ -120,7 +120,7 @@
 		var tags = [
 				"men",
 				"basic",
-				"colourful",
+				"unique",
 				"online",
 				"spring-summer",
 				"fall-winter"
