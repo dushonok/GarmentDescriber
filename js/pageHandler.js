@@ -232,6 +232,9 @@ function PageCreator(pageNames, fieldRealNames) {
 		if (name === PageCreator.consignmentFieldName) {
 			self.onConsingment = self.id === "1";
 		} else {
+			if (displayName === PageCreator.sizeFieldName ) {
+				self.sizeLetter = self.id.replace("Size-", "");
+			}
 			if (name === PageCreator.tagsFieldName) {
 				var prevVal = getField(self.sessionID, self.row.garmentID, name);
 				
@@ -244,6 +247,9 @@ function PageCreator(pageNames, fieldRealNames) {
 			} else if (name === PageCreator.descriptionFieldName) {
 				if (self.isVintage) {
 					self.id += " Vintage";
+				}
+				if (self.sizeLetter) {
+					self.id += " " + self.sizeLetter;
 				}
 			}
 			console.debug("Save field: display name = ", displayName, ", real name = ", name, ", value = ", self.id);
