@@ -97,8 +97,6 @@
 		orderedPages.push(PageCreator.vendorFieldName, vendors);
 		orderedPages.push(PageCreator.consignorFieldName, consignors);
 
-		orderedPages.push(PageCreator.descriptionFieldName, {});
-
 		var sizes =
 			[	
 				"Size XS",
@@ -111,6 +109,8 @@
 		var sizesHash = {};
 		UtilFunctions.arrayToHash(sizes, sizesHash);
 		orderedPages.push(PageCreator.sizeFieldName, sizesHash);	
+
+		orderedPages.push(PageCreator.descriptionFieldName, {});
 
 		orderedPages.push(PageCreator.priceFieldName, {});
 		//orderedPages.push(PageCreator.msrpFieldName, {});
