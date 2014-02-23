@@ -196,6 +196,9 @@
 			}
 		});
 	};
+	window.onpopstate = function(e) {
+		if (RowHandler && RowHandler.pageHandler) RowHandler.goToPrev();
+	};
 	console.debug("promises = ", promises);
 	Q.all(promises).then(callback);
 

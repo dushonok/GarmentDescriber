@@ -33,6 +33,7 @@ RowHandler.saveValue = function() {
 // Navigation 
 
 RowHandler.saveValueAndGoToNext = function() {
+	history.pushState({"id":RowHandler.pageHandler.pageNumber}, document.title, location.href);
 	RowHandler.saveValue();
 	RowHandler.pageHandler.goToNextPage();
 }
