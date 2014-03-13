@@ -229,7 +229,7 @@ function PageCreator(pageNames, fieldRealNames) {
 		self.row[UtilFunctions.removeSpaces(displayName)] = 
 								document.getElementById(inputName).value;
 		
-		if (name === PageCreator.consignmentFieldName) {
+		if (displayName === PageCreator.consignmentFieldName) {
 			self.onConsingment = self.id === "1";
 		} else {
 			if (displayName === PageCreator.sizeFieldName ) {
