@@ -125,8 +125,8 @@
 		orderedPages.push(PageCreator.descriptionFieldName, {});
 
 		orderedPages.push(PageCreator.priceFieldName, {});
-		//orderedPages.push(PageCreator.msrpFieldName, {});
-		//orderedPages.push(PageCreator.defaultCostFieldName, {});
+		orderedPages.push(PageCreator.msrpFieldName, {});
+		orderedPages.push(PageCreator.defaultCostFieldName, {});
 		orderedPages.push(PageCreator.quantityFieldName, {});
 
 		orderedPages.push(PageCreator.notesFieldName, {});
