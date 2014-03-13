@@ -231,6 +231,9 @@ function PageCreator(pageNames, fieldRealNames) {
 		
 		if (displayName === PageCreator.consignmentFieldName) {
 			self.onConsingment = self.id === "1";
+			if (self.onConsingment) {
+				saveField(self.sessionID, self.row.garmentID, name, "404" /*Consignment*/);
+			}
 		} else {
 			if (displayName === PageCreator.sizeFieldName ) {
 				self.sizeLetter = self.id.replace("Size-", "");
