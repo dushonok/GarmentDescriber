@@ -226,8 +226,8 @@ function PageCreator(pageNames, fieldRealNames) {
 		var name = self.getRealFieldName(displayName);
 
 		var inputName = self.getCurrentInputName();
-		self.row[UtilFunctions.removeSpaces(displayName)] = 
-								document.getElementById(inputName).value;
+		var displayValue = document.getElementById(inputName).value;
+		self.row[UtilFunctions.removeSpaces(displayName)] = displayValue;
 		
 		if (displayName === PageCreator.consignmentFieldName) {
 			self.onConsingment = self.id === "1";
@@ -238,12 +238,16 @@ function PageCreator(pageNames, fieldRealNames) {
 			if (displayName === PageCreator.sizeFieldName ) {
 				self.sizeLetter = self.id.replace("Size-", "");
 			}
-			if (name === PageCreator.tagsFieldName) {
+			else if (name === PageCreator.tagsFieldName) {
 				var prevVal = getField(self.sessionID, self.row.garmentID, name);
 				
 				if (prevVal != undefined && prevVal != "") {
 					self.id += self.id === "" ? "" : ", ";
 					self.id += prevVal;
+				}
+
+				if (self.id.indexOf(PageCreator.onlineTag) >= 0) {
+					self.onlineDesc = "Etsy";
 				}
 			} else if (name === PageCreator.manufacturerFieldName ) {
 				self.isVintage = self.id != "";
@@ -251,9 +255,18 @@ function PageCreator(pageNames, fieldRealNames) {
 				if (self.isVintage) {
 					self.id += " Vintage";
 				}
+				if (self.vendor) {
+					self.id += " " + self.vendor;	
+				}
+				if (self.onlineDesc) {
+					self.id += " " + self.onlineDesc;
+				}
 				if (self.sizeLetter) {
 					self.id += " " + self.sizeLetter;
 				}
+				
+			} else if (displayName === PageCreator.vendorFieldName) {
+				self.vendor = displayValue;
 			}
 			console.debug("Save field: display name = ", displayName, ", real name = ", name, ", value = ", self.id);
 			
@@ -407,5 +420,7 @@ PageCreator.categoryFieldName = "Category";
 PageCreator.vintageNewFieldName = "Vintage / New";
 PageCreator.sizeFieldName = "Size";
 PageCreator.notesFieldName = "Note";
+
+PageCreator.onlineTag = "online";
 
 PageCreator.hints = {}
