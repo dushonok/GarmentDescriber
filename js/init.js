@@ -78,7 +78,7 @@
 		fieldRealNames[PageCreator.consignmentFieldName] = PageCreator.vendorFieldName;
 		fieldRealNames[PageCreator.sizeFieldName] = PageCreator.tagsFieldName;
 		fieldRealNames[PageCreator.defaultCostFieldName] = "DefaultCost";
-		fieldRealNames[PageCreator.msrpFieldName] = "Msrp";
+		//fieldRealNames[PageCreator.msrpFieldName] = "Msrp";
 		
 
 		orderedPages.push(PageCreator.categoryFieldName, categories);
@@ -126,9 +126,20 @@
 		orderedPages.push(PageCreator.descriptionFieldName, {});
 
 		orderedPages.push(PageCreator.priceFieldName, {});
-		orderedPages.push(PageCreator.msrpFieldName, {});
+		//orderedPages.push(PageCreator.msrpFieldName, {});
 		orderedPages.push(PageCreator.defaultCostFieldName, {});
-		orderedPages.push(PageCreator.quantityFieldName, {});
+
+		tags = [
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6"
+		];
+		tagsHash = {};
+		UtilFunctions.arrayToHash(tags, tagsHash);
+		orderedPages.push(PageCreator.quantityFieldName, tagsHash);
 
 		orderedPages.push(PageCreator.notesFieldName, {});
 

@@ -6,7 +6,7 @@
 
 	<form name=myText>
 		<label>&nbsp;<%= hint%></label>
-		<input class="form-control"id="input<%= currentPage %>" name="valueToStore" value="" style="width: 40em;">
+		<input class="form-control"id="input<%= currentPage %>" name="valueToStore" value="<%= defaultValue %>" style="width: 40em;">
 
 		<button type="button" accesskey=">"  class="btn btn-info btn-small" \ 
 			id="prevButton" <%if (currentPage === 1) { %> disabled <% } %> 

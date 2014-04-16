@@ -30,13 +30,14 @@ function PageCreator(pageNames, fieldRealNames) {
 
 		for (var i = 0; i < self.totalNumberOfPage; i++) {
 			var key = self.getFieldNameByNumber(i);
-			var value = self.pageNameOrderedHash.value(key);
+			var buttons = self.pageNameOrderedHash.value(key);
 			items = {
 				pageHandler: self,
 				currentPage: i+1,
 				totalNumberOfPage: self.totalNumberOfPage,
 				title: key,
-				items: value,
+				items: buttons,
+				defaultValue: key === PageCreator.quantityFieldName ? "1" : "",
 				addToExisting: key === PageCreator.tagsFieldName,
 				hint: PageCreator.hints[UtilFunctions.removeSpaces(key)]
 			};
