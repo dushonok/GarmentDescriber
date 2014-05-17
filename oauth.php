@@ -54,3 +54,8 @@ $token = $r["access_token"];
 file_put_contents("private/token", $token);
 
 ?>
+<p>OK, you should be good to go. Where did you come from?</p>
+<ul>
+  <li><a href="list_categories.html">List categories</a></li>
+  <li><a href="test.html">Testsuite</a></li>
+</ul>
