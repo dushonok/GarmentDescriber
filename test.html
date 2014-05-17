@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>My Test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="doctest/doctest.js"></script>
     <link href="doctest/doctest.css" rel="stylesheet">
     <script src="js/garment_storage.js"></script>
@@ -138,5 +139,24 @@ print(sessionId);
 // => Michelle002
 </pre>
 
+<h2>Server interaction</h2>
+<pre class="test">
+var done = false;
+
+listFieldValues("Category", function(data) {
+  done = true;
+  print(data);
+});
+
+wait(function () {return done;});
+/* =>
+{
+  "241": "clothing",
+  "243": "clothing/dress",
+  "245": "clothing/blouse",
+...
+}
+*/
+</pre>
   </body>
 </html>
