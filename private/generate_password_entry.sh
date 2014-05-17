@@ -1,0 +1,1 @@
+htpasswd -nbs myName myPassword
