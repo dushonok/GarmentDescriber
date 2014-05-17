@@ -51,5 +51,6 @@ if (!array_key_exists("access_token", $r)) {
 }
 
 $token = $r["access_token"];
-file_put_contents("private/token", $code);
+file_put_contents("private/token", $token);
+
 ?>
