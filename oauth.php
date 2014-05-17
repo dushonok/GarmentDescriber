@@ -27,8 +27,28 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, array(
 
 //curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-HTTP-Method-Override: CREATE'));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$r = json_decode(curl_exec($ch), true);
+$s = curl_exec($ch);
+if (curl_errno($ch) != 0) {
+  $msg = curl_error($ch);
+  header("HTTP/1.1 500 $msg");
+  print $msg;
+  exit();
+}
+$r = json_decode($s, true);
 curl_close($ch);
+if (array_key_exists("error_description", $r)) {
+  $msg = $r["error_description"];
+  header("HTTP/1.1 500 $msg");
+  print $msg;
+  exit();
+}
+
+if (!array_key_exists("access_token", $r)) {
+  $msg = "no oauth token received";
+  header("HTTP/1.1 500 $msg");
+  print $msg;
+  exit();
+}
 
 $token = $r["access_token"];
 file_put_contents("private/token", $code);
