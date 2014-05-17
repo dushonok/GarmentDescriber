@@ -7,6 +7,15 @@
     <script src="js/garment_storage.js"></script>
     <script>
       $(document).ready(function() {
+        $(document).ajaxError(function(e, x, settings, exception) {
+          var msg = exception;
+          if (exception == "Unauthorized") {
+            $("div#errorcontainer").html("please <a href=\"https://cloud.merchantos.com/oauth/authorize.php?response_type=code&client_id=garment_describer&scope=employee:inventory\">login</a> first.");
+          } else {
+            $("div#errorcontainer").text(exception);
+          }
+        });
+        
         $.each(listFieldKeys(), function(_, key) {
           $("<h3>"+key+"</h3>").appendTo($("body"));
           var list = $("<ul></ul>").appendTo($("body"));
@@ -21,5 +30,6 @@
     </script>
   </head>
   <body>
+    <div id="errorcontainer"></div>
   </body>
 </html>

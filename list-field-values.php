@@ -34,8 +34,19 @@ function getJson($url) {
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   #$apikey = trim(file_get_contents("private/key"));
   #curl_setopt($ch, CURLOPT_USERPWD, "$apikey:apikey");
-  $data = json_decode(curl_exec($ch), true);
+  $s = curl_exec($ch);
+  if (curl_errno($ch) != 0) {
+    $msg = curl_error($ch);
+    header("HTTP/1.1 500 $msg");
+    exit();
+  }
+  $data = json_decode($s, true);
   curl_close($ch);
+  if (array_key_exists("httpMessage", $data)) {
+    $msg = $data["httpMessage"];
+    header("HTTP/1.1 500 $msg");
+    exit();
+  }
   return $data;
 }
 
