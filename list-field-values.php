@@ -1,5 +1,14 @@
 <?php
 
+$valid_IPs = json_decode(file_get_contents("private/ip_list"), true);
+$ip = $_SERVER['REMOTE_ADDR'];
+if (!in_array($ip, $valid_IPs)) {
+  $msg = "Your IP $ip is not in the whitelist.";
+  header("HTTP/1.1 403 $msg");
+  print $msg;
+  exit();
+}
+
 $key_mapping = array(
   "Category"      => array("id" => "categoryID",      "url" => "Category",     "name" => "fullPathName"),
   "TaxClass"      => array("id" => "taxClassID",      "url" => "TaxClass",     "name" => "name"),
