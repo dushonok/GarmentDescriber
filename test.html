@@ -7,18 +7,28 @@
     <script src="doctest/doctest.js"></script>
     <link href="doctest/doctest.css" rel="stylesheet">
     <script src="js/garment_storage.js"></script>
+    <script>
+      function addLogout(code) {
+        $("<div style=\"float: right;\"><a href=\"logout.php?code="+code+"\">log out</a></div>").prependTo($("body"));
+      }
+    </script>
   </head>
   <body class="autodoctest">
 
 <h1>Garment API</h1>
+<p>Note that you need to be <a href="https://cloud.merchantos.com/oauth/authorize.php?response_type=code&client_id=garment_describer&scope=employee:inventory">logged in</a> in order for these tests to pass.
 
-<p>All the operations below save to the permacookie.</p>
-
-<p>To make the tests deterministic, we begin by clearing the permacookie:</p>
 <pre class="test">
-window.localStorage.clear();
+// revert to the bare minimum permacookie
+var code = getOAuthCode(getDefaultSessionId());
+print(code);
+// => ...
+
+addLogout(code);
+clearPermacookie();
 print(window.localStorage)
 // => []
+newSession(getDefaultUsername(), code);
 </pre>
 
 <h2>Adding Garments</h2>
@@ -75,7 +85,7 @@ Nadya Dushonok,bracelet,rainbow,15.0
 <pre class="test">
 sessionIds = listSessions();
 print(sessionIds);
-// => ["Nadya001"]
+// => ["defaultUser001", "Nadya001"]
 </pre>
 
 <p>Two garments:</p>
@@ -140,7 +150,6 @@ print(sessionId);
 </pre>
 
 <h2>Server interaction</h2>
-<p>You need to <a href="https://cloud.merchantos.com/oauth/authorize.php?response_type=code&client_id=garment_describer&scope=employee:inventory">login</a> in order for these tests to pass. Don't forget to <a href="logout.php">logout</a> when you're done!</p>
 <pre class="test">
 var done = false;
 

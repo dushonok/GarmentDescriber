@@ -19,6 +19,10 @@ function getPermacookie() {
   }
   return permacookie;
 }
+function clearPermacookie() {
+  permacookie = undefined;
+  window.localStorage.clear();
+}
 function savePermacookie() {
   window.localStorage[permacookie_key] = JSON.stringify(permacookie);
   
@@ -75,6 +79,10 @@ function garment(sessionId, garmentId) {
 
 
 // public
+
+function getDefaultUsername() {
+  return "defaultUser";
+}
 
 function newSession(username, oauth_code) {
   console.assert(typeof username === "string");
