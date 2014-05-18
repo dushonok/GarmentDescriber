@@ -1,5 +1,7 @@
 <?php
 
+$code = preg_replace("/[^\w\d ]/ui", '', $_GET["code"]);;
+
 $valid_IPs = json_decode(file_get_contents("private/ip_list"), true);
 $ip = $_SERVER['REMOTE_ADDR'];
 if (!in_array($ip, $valid_IPs)) {
@@ -38,7 +40,8 @@ if ($key == "Consignors") {
 }
 
 function getJson($url) {
-  $token = trim(file_get_contents("private/token"));
+  global $code;
+  $token = trim(file_get_contents("private/token-$code"));
   $ch = curl_init("$url&oauth_token=$token");
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   #$apikey = trim(file_get_contents("private/key"));

@@ -15,6 +15,8 @@
             $("div#errorcontainer").text(exception);
           }
         });
+        var code = getOAuthCode(getDefaultSessionId());
+        $("<div style=\"float: right;\"><a href=\"logout.php?code="+code+"\">log out</a></div>").appendTo($("body"));
         
         $.each(listFieldKeys(), function(_, key) {
           $("<h3>"+key+"</h3>").appendTo($("body"));
@@ -30,7 +32,6 @@
     </script>
   </head>
   <body>
-    <div style="float: right;"><a href="logout.php">log out</a></div>
     <div id="errorcontainer"></div>
   </body>
 </html>

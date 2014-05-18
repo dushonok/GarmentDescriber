@@ -76,12 +76,22 @@ function garment(sessionId, garmentId) {
 
 // public
 
-function newSession(username) {
+function newSession(username, oauth_code) {
   console.assert(typeof username === "string");
   var n = incr(topDict("sessionNumber"), username, 1);
+  var sessionId = username + prefixZeroes(3, n);
+  session(sessionId)["oauth_code"] = oauth_code;
   savePermacookie();
   
-  return username + prefixZeroes(3, n);
+  return sessionId;
+}
+
+function getDefaultSessionId() {
+  return "defaultUser001";
+}
+
+function getOAuthCode(sessionId) {
+  return session(sessionId)["oauth_code"];
 }
 
 function newGarment(sessionId) {
@@ -200,7 +210,8 @@ function listFieldKeys() {
 function listFieldValues(fieldKey, callback) {
   console.assert(typeof fieldKey === "string");
   console.assert(typeof callback === "function");
-  var url = "http://gelisam.com/ff/GarmentDescriber/list-field-values.php?key=" + fieldKey;
+  var code = getOAuthCode(getDefaultSessionId());
+  var url = "http://gelisam.com/ff/GarmentDescriber/list-field-values.php?code=" + code + "&key=" + fieldKey;
   $.getJSON(url, callback);
 }
 
@@ -208,7 +219,8 @@ function uploadGarment(sessionId, garmentId, callback) {
   console.assert(typeof sessionId === "string");
   console.assert(typeof garmentId === "number");
   console.assert(typeof callback === "function");
-  var url = "http://gelisam.com/ff/GarmentDescriber/upload-item.php";
+  var code = getOAuthCode(sessionId);
+  var url = "http://gelisam.com/ff/GarmentDescriber/upload-item.php?code=" + code;
   $.ajax({
     type: "POST",
     dataType: "json",

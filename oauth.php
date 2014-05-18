@@ -4,8 +4,8 @@
 # debug
 #file_put_contents("private/oauth.log", print_r(array("_GET" => $_GET, "_POST" => $_POST), true), FILE_APPEND);
 
-$code = $_GET["code"];
-file_put_contents("private/code", $code);
+$code = preg_replace("/[^\w\d ]/ui", '', $_GET["code"]);;
+#file_put_contents("private/code", $code);
 
 
 # Retrieving Access Token
@@ -51,11 +51,28 @@ if (!array_key_exists("access_token", $r)) {
 }
 
 $token = $r["access_token"];
-file_put_contents("private/token", $token);
+file_put_contents("private/token-$code", $token);
 
 ?>
-<p>OK, you should be good to go. Where did you come from?</p>
-<ul>
-  <li><a href="list_categories.html">List categories</a></li>
-  <li><a href="test.html">Testsuite</a></li>
-</ul>
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>LightSpeed Categories</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/garment_storage.js"></script>
+    <script>
+      $(document).ready(function() {
+        window.localStorage.clear();
+        newSession("defaultUser", "<?=$code?>");
+      });
+    </script>
+  </head>
+  <body>
+    <p>OK, you should be good to go. Where did you come from?</p>
+    <ul>
+      <li><a href="list_categories.html">List categories</a></li>
+      <li><a href="test.html">Testsuite</a></li>
+    </ul>
+  </body>
+</html>

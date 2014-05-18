@@ -1,5 +1,7 @@
 <?php
 
+$code = preg_replace("/[^\w\d ]/ui", '', $_GET["code"]);;
+
 $valid_IPs = json_decode(file_get_contents("private/ip_list"), true);
 $ip = $_SERVER['REMOTE_ADDR'];
 if (!in_array($ip, $valid_IPs)) {
@@ -93,7 +95,7 @@ header('Access-Control-Allow-Origin: *');
 
 // based on http://benalman.com/projects/php-simple-proxy/
 
-$token = trim(file_get_contents("private/token"));
+$token = trim(file_get_contents("private/token-$code"));
 $url = "https://api.merchantos.com/API/Account/71231/Item.json?oauth_token=$token";
 $ch = curl_init( $url );
 
