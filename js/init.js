@@ -19,8 +19,13 @@
 	var fullInfo = [];
 	var vendors, consignors, categories, manufacturers;
 
+	$("p#waiting").show();
+
 	$(document).ajaxError(function(e, x, settings, exception) {
       var msg = exception;
+
+      $("p#waiting").hide();
+
       var errorContainer = $("#errorcontainer");
       if (exception == "Unauthorized") {
         errorContainer.html("Please <a href=\"" + Settings.loginUrl + "\">login</a> first");
