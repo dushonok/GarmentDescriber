@@ -25,7 +25,6 @@ function PageCreator(pageNames, fieldRealNames) {
 		var htmlPage;
 
 		self.initValues();
-		window.localStorage.clear();
 
 		$("div#frontPageTitle").hide();
 
