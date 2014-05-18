@@ -26,7 +26,9 @@ function PageCreator(pageNames, fieldRealNames) {
 
 		self.initValues();
 		window.localStorage.clear();
-		self.sessionID = newSession("items");
+
+
+		self.sessionID = getDefaultSessionId();
 
 		for (var i = 0; i < self.totalNumberOfPage; i++) {
 			var key = self.getFieldNameByNumber(i);

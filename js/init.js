@@ -1,5 +1,5 @@
 
-(function(){
+(function() {
 	// $(window).keydown(function(e) {
 	//     switch (e.keyCode) {
 	//         case 37: case 38:  //key is left or up
@@ -16,10 +16,18 @@
 
 	var promises = [];
 	var fieldKeys = listFieldKeys();
-	
-
 	var fullInfo = [];
 	var vendors, consignors, categories, manufacturers;
+
+	$(document).ajaxError(function(e, x, settings, exception) {
+      var msg = exception;
+      if (exception == "Unauthorized") {
+        $("div#errorcontainer").html("Please <a href=\"" + Settings.loginUrl + "\">login</a> first.");
+      } else {
+        $("div#errorcontainer").text(exception);
+      }
+    });
+
 	for (var i= 0; i < fieldKeys.length; ++i) {
 		(function(){
 			var fieldKey = fieldKeys[i]
