@@ -65,12 +65,14 @@ file_put_contents("private/token-$code", $token);
       $(document).ready(function() {
         window.localStorage.clear();
         newSession("defaultUser", "<?=$code?>");
+        window.location.replace("index.html");
       });
     </script>
   </head>
   <body>
     <p>OK, you should be good to go. Where did you come from?</p>
     <ul>
+      <li><a href="index.html">Main page</a></li>
       <li><a href="list_categories.html">List categories</a></li>
       <li><a href="test.html">Testsuite</a></li>
     </ul>
