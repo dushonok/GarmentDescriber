@@ -212,7 +212,7 @@ function downloadCSV(sessionId) {
 
 
 function listFieldKeys() {
-  return ["Category", /*"TaxClass", "ItemMatrix",*/ "Manufacturer", /*"Vendor",*/ "Consignors"];
+  return ["Category", "TaxClass", /*"ItemMatrix",*/ "Manufacturer", "Vendor", "Consignors"];
 }
 
 function listFieldValues(fieldKey, callback) {

@@ -10,7 +10,7 @@
         $(document).ajaxError(function(e, x, settings, exception) {
           var msg = exception;
           if (exception == "Unauthorized") {
-            $("div#errorcontainer").html("please <a href=\"https://cloud.merchantos.com/oauth/authorize.php?response_type=code&client_id=garment_describer&scope=employee:inventory\">login</a> first.");
+            $("div#errorcontainer").html("please <a href=\"https://cloud.merchantos.com/oauth/authorize.php?response_type=code&client_id=garment_describer&scope=employee:all\">login</a> first.");
           } else {
             $("div#errorcontainer").text(exception);
           }
