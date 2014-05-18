@@ -1,5 +1,10 @@
-<div id="page<%= currentPage %>">
-	<div >Page <%= currentPage %> out of <%= totalNumberOfPage %></div>
+<div id="page<%= currentPage %>" class="page">
+	<div id="logout"><a href="logout.php"class="pull-right">log out</a></div>
+            
+	<div >
+		<img src="resources\ff_ff_logo_pink.jpg" width=50/> 
+		Page <%= currentPage %> out of <%= totalNumberOfPage %>
+	</div>
 	<br>
 	<p id="fullDesc" class="bg-success">Description of the item</p>
 	<h4>&nbsp;<%= title %></h4>

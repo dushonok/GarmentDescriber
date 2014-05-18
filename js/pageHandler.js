@@ -28,6 +28,10 @@ function PageCreator(pageNames, fieldRealNames) {
 		window.localStorage.clear();
 
 
+		$("#pageDecor").show();
+		$("div#frontPageTitle").hide();
+
+
 		self.sessionID = getDefaultSessionId();
 
 		for (var i = 0; i < self.totalNumberOfPage; i++) {

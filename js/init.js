@@ -21,10 +21,11 @@
 
 	$(document).ajaxError(function(e, x, settings, exception) {
       var msg = exception;
+      var errorContainer = $("#errorcontainer");
       if (exception == "Unauthorized") {
-        $("div#errorcontainer").html("Please <a href=\"" + Settings.loginUrl + "\">login</a> first.");
+        errorContainer.html("Please <a href=\"" + Settings.loginUrl + "\">login</a> first");
       } else {
-        $("div#errorcontainer").text(exception);
+        errorContainer.text("Error: " + exception);
       }
     });
 
