@@ -27,10 +27,7 @@ function PageCreator(pageNames, fieldRealNames) {
 		self.initValues();
 		window.localStorage.clear();
 
-
-		$("#pageDecor").show();
 		$("div#frontPageTitle").hide();
-
 
 		self.sessionID = getDefaultSessionId();
 
