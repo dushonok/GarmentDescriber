@@ -94,6 +94,10 @@ function PageCreator(pageNames, fieldRealNames) {
 		return self.getFieldNameByNumber(self.pageNumber-1) === PageCreator.tagsFieldName;
 	},
 
+	this.isQuantityPage = function() {
+		return self.getFieldNameByNumber(self.pageNumber-1) === PageCreator.quantityFieldName;
+	},
+
 	
 
 	this.firstPageNumber = function() {
@@ -317,7 +321,7 @@ function PageCreator(pageNames, fieldRealNames) {
 	this.isCurrentTakeInputValue = function() {
 		var key = self.getFieldNameByNumber(self.pageNumber-1);
 		var value = self.pageNameOrderedHash.value(key);
-		return UtilFunctions.isEmpty(value) || self.isTagsPage();
+		return UtilFunctions.isEmpty(value) || self.isTagsPage() || self.isQuantityPage();
 	},
 
 	this.getFullDesc = function() {

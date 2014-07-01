@@ -1,0 +1,2 @@
+97769b48de26b21532b26452a6f6ada8fe005ce0
+in the local tab: newSession(getDefaultSessionId(), "97769b48de26b21532b26452a6f6ada8fe005ce0")

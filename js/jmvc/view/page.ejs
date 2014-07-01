@@ -27,9 +27,9 @@
 		</button>
 
 		<button type="button" id="buttonP" \ 
-			class="btn btn-primary btn-small" \ 
+			class="btn btn-primary btn-small"  <%if (currentPage === totalNumberOfPage) { %> disabled <% } %> \  
 								onclick="RowHandler.usePreviousAndGoToNext()">
-				Same & next
+				Same As Previous & Next Field
 		</button>
 		<br>
 	
