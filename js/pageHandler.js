@@ -39,7 +39,7 @@ function PageCreator(pageNames, fieldRealNames) {
 				totalNumberOfPage: self.totalNumberOfPage,
 				title: key,
 				items: buttons,
-				defaultValue: "",
+				defaultValue: key === PageCreator.quantityFieldName ? "1" : "",
 				addToExisting: key === PageCreator.tagsFieldName,
 				hint: PageCreator.hints[UtilFunctions.removeSpaces(key)]
 			};
