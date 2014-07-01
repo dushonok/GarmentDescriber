@@ -171,12 +171,16 @@ function exportJson(sessionId) {
   for (var i=0; i<xss.length; ++i) {
     var xs = xss[i]
     var g = {};
-    for (var j=0; j<xs.length; ++j) {
-      var pair = xs[j];
-      var key = pair[0];
-      var value = pair[1];
-      if (value != "") {
-        g[key] = value;
+    if (xs === null) {
+      alert("The 'null' bug was encountered. Could you please tell Nadya which buttons you have pressed during the creation of this item? Thanks.");
+    } else {
+      for (var j=0; j<xs.length; ++j) {
+        var pair = xs[j];
+        var key = pair[0];
+        var value = pair[1];
+        if (value != "") {
+          g[key] = value;
+        }
       }
     }
     r[i] = g;
