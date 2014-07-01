@@ -41,6 +41,11 @@ RowHandler.saveValue = function() {
 
 // Navigation 
 
+RowHandler.usePreviousAndGoToNext = function() {
+	RowHandler.usePrevious();
+	RowHandler.saveValueAndGoToNext();
+}
+
 RowHandler.saveValueAndGoToNext = function() {
 	history.pushState({"id":RowHandler.pageHandler.pageNumber}, document.title, location.href);
 	RowHandler.saveValue();
