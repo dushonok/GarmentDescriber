@@ -234,6 +234,7 @@ function PageCreator(pageNames, fieldRealNames) {
 
 		var inputName = self.getCurrentInputName();
 		var displayValue = document.getElementById(inputName).value;
+                RowHandler.savePrevious(inputName, self.id, displayValue);
 		self.row[UtilFunctions.removeSpaces(displayName)] = displayValue;
 		
 		if (displayName === PageCreator.consignmentFieldName) {

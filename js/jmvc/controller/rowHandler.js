@@ -10,10 +10,12 @@ RowHandler.usePrevious = function() {
 		RowHandler.setValue(xs[0], xs[1], xs[2]);
 	}
 }
+RowHandler.savePrevious = function(inputName, value, valueToShow) {
+	previousValue[inputName] = [value, valueToShow, false];
+}
 
 RowHandler.setValue = function(value, valueToShow, addToExisting) {
 	var inputName = RowHandler.pageHandler.getCurrentInputName();
-	previousValue[inputName] = [value, valueToShow, addToExisting];
 	clickedValue = value;
 	
 	if (addToExisting) {
