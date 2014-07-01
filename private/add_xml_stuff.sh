@@ -1,9 +1,10 @@
 #!/bin/bash
-ID="$1"
-TAGS="$2"
-NOTE="$3"
-APIKEY="$(cat key)"
-TOKEN="$(cat token)"
+CODE="$1"
+ID="$2"
+TAGS="$3"
+NOTE="$4"
+#APIKEY="$(cat key)"
+TOKEN="$(cat "token-$CODE")"
 # --user "$APIKEY:apikey"
 curl -X PUT --data "$(
   echo "<?xml version=\"1.0\"?>"

@@ -119,7 +119,7 @@ if (array_key_exists("Tags", $_POST) || array_key_exists("Note", $_POST)) {
   $output = array();
   $old_pwd = getcwd();
   chdir("/home1/carlosm5/public_html/gelisam/ff/GarmentDescriber/private");
-  exec("/home1/carlosm5/public_html/gelisam/ff/GarmentDescriber/private/add_xml_stuff.sh " . escapeshellarg($itemID) . " " . escapeshellarg($tags) . " " . escapeshellarg($note), $output);
+  exec("/home1/carlosm5/public_html/gelisam/ff/GarmentDescriber/private/add_xml_stuff.sh " . escapeshellarg($code) . " " . escapeshellarg($itemID) . " " . escapeshellarg($tags) . " " . escapeshellarg($note), $output);
   chdir($old_pwd);
   $r["xml_output"] = $output;
 }
