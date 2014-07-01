@@ -172,8 +172,8 @@ function exportJson(sessionId) {
     var xs = xss[i]
     var g = {};
     if (xs === null) {
-      window.localStorage.clear();
       alert("A mysterious error has occurred. Please refresh and try again.");
+      window.localStorage.clear();
       return r;
     } else {
       for (var j=0; j<xs.length; ++j) {
