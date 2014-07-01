@@ -172,7 +172,9 @@ function exportJson(sessionId) {
     var xs = xss[i]
     var g = {};
     if (xs === null) {
-      alert("The 'null' bug was encountered. Could you please tell Nadya which buttons you have pressed during the creation of this item? Thanks.");
+      window.localStorage.clear();
+      alert("A mysterious error has occurred. Please refresh and try again.");
+      return r;
     } else {
       for (var j=0; j<xs.length; ++j) {
         var pair = xs[j];
