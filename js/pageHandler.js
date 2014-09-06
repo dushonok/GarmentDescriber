@@ -297,7 +297,11 @@ function PageCreator(pageNames, fieldRealNames) {
 		if (self.row.garmentID >= 0) {
 			//save
 			console.debug("save now");
+                        $("#saveAndRestartButton").attr('disabled','disabled');
+                        $("#whileSaving").show();
 			uploadGarment(self.sessionID, self.row.garmentID, function(result) {
+                                $("#saveAndRestartButton").removeAttr('disabled');
+                                $("#whileSaving").hide();
 				console.debug("result = ", result);
 				if (result.httpCode == undefined) {
 					self.initValues();
